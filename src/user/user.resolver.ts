@@ -1,15 +1,6 @@
 import { UserWhereUniqueInput } from '@generated/type-graphql/resolvers/inputs/UserWhereUniqueInput';
 import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common';
-import {
-    Args,
-    Context,
-    Info,
-    Mutation,
-    Parent,
-    Query,
-    ResolveProperty,
-    Resolver,
-} from '@nestjs/graphql';
+import { Args, Context, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'app_modules/current-user-decorator';
 import {
     GraphqlAuthGuard,
@@ -46,7 +37,7 @@ export class UserResolver {
 
     @Query(() => User)
     @UseGuards(OptionalGraphqlAuthGuard)
-    async user(@Args('where') where: UserWhereUniqueInput, @Info() info) {
+    async user(@Args('where') where: UserWhereUniqueInput) {
         const user = await this.userService.findOne(where);
         if (!user) {
             throw new NotFoundException(`User with ${JSON.stringify(where)} do not exists.`);
@@ -92,12 +83,12 @@ export class UserResolver {
         return this.userService.follow(where, follower, value);
     }
 
-    @ResolveProperty(() => String, { nullable: true })
+    @ResolveField(() => String, { nullable: true })
     password(@Parent() user: User) {
         return undefined;
     }
 
-    @ResolveProperty(() => String, { nullable: true })
+    @ResolveField(() => String, { nullable: true })
     async token(@Parent() user: User, @Context() context: GraphQLContext) {
         return context.token;
     }
@@ -105,7 +96,7 @@ export class UserResolver {
     /**
      * Check if current user is follow some user.
      */
-    @ResolveProperty(() => Boolean)
+    @ResolveField(() => Boolean)
     async following(
         @Parent() user: User,
         @CurrentUser() currentUser?: PassportUserFields,

@@ -1,3 +1,4 @@
+import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
 import {
     buildSchema,
     ExecutionResult,
@@ -46,19 +47,21 @@ async function executeGraphQL(query) {
         fieldResolver: resolver,
     };
     const response: ExecutionResult = await graphql(graphqlArgs);
-    return [undefined, undefined, undefined, info] as any;
+    const executionContext = new ExecutionContextHost([undefined, undefined, undefined, info]);
+    executionContext.setType('graphql');
+    return executionContext;
 }
 
 it('prisma find args', () => {
     expect(async () => {
-        const args = await executeGraphQL(/* GraphQL */ `
+        const executionContext = await executeGraphQL(/* GraphQL */ `
             query {
                 user {
                     id
                 }
             }
         `);
-        const result = graphqlFieldsImpl(undefined, args);
+        const result = graphqlFieldsImpl(undefined, executionContext);
     }).not.toThrow();
 });
 

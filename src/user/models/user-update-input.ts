@@ -1,4 +1,4 @@
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
 /**
  * Update user input type.

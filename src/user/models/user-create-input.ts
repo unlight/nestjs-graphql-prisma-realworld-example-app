@@ -1,5 +1,5 @@
+import { Field, InputType } from '@nestjs/graphql';
 import { IsEmail, IsNotEmpty, MinLength, Validate } from 'class-validator';
-import { Field, InputType } from 'type-graphql';
 
 import { UserExistsValidator } from '../validators/user-exists.validator';
 

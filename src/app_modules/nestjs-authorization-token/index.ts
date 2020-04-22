@@ -1,20 +1,25 @@
-import { createParamDecorator } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { IncomingMessage } from 'http';
 
-// tslint:disable-next-line:variable-name
-export const AuthorizationToken = createParamDecorator((data, requestOrArgs) => {
-    const request = getRequest(requestOrArgs);
-    const authorization = request.headers.authorization;
-    const [, token] = String(authorization).split(' ');
-    return token;
-});
+const requestFactories = new Map<string, (c: ExecutionContext) => unknown>([
+    ['http', (executionContext) => executionContext.getArgByIndex(0)],
+    ['graphql', (executionContext) => executionContext.getArgByIndex(2)?.req],
+]);
 
-function getRequest(request: unknown): IncomingMessage {
-    if (Array.isArray(request)) {
-        request = request?.[2].context?.req;
-    }
-    if (!(request instanceof IncomingMessage)) {
-        throw new TypeError('Cannot find IncomingMessage in context');
-    }
-    return request;
-}
+// tslint:disable-next-line:variable-name
+export const AuthorizationToken = createParamDecorator(
+    (data, executionContext: ExecutionContext) => {
+        let request: unknown;
+        const type: string = executionContext.getType();
+        const factory = requestFactories.get(type);
+        if (factory) {
+            request = factory(executionContext);
+        }
+        if (!(request instanceof IncomingMessage)) {
+            throw new TypeError(`Cannot find IncomingMessage in context type ${type}`);
+        }
+        const authorization = request.headers.authorization;
+        const [, token] = String(authorization).split(' ');
+        return token;
+    },
+);

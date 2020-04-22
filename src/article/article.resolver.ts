@@ -2,7 +2,7 @@ import { FindManyArticleArgs } from '@generated/type-graphql/resolvers/crud/Arti
 import { ArticleWhereInput } from '@generated/type-graphql/resolvers/inputs/ArticleWhereInput';
 import { ArticleWhereUniqueInput } from '@generated/type-graphql/resolvers/inputs/ArticleWhereUniqueInput';
 import { NotFoundException, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Parent, Query, ResolveProperty, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'app_modules/current-user-decorator';
 import { GraphqlFields } from 'app_modules/nestjs-graphql-fields';
 import {
@@ -10,7 +10,6 @@ import {
     OptionalGraphqlAuthGuard,
 } from 'app_modules/nestjs-passport-graphql-auth-guard';
 import { PlainObject } from 'simplytyped';
-import { Int } from 'type-graphql';
 
 import { ArticleService } from './article.service';
 import { AuthorGuard } from './author.guard';
@@ -168,7 +167,7 @@ export class ArticleResolver {
     /**
      * Checks if article is favorited by current user.
      */
-    @ResolveProperty(() => Boolean)
+    @ResolveField(() => Boolean)
     async favorited(
         @Parent() article: Article,
         @CurrentUser() currentUser?: { id: string },
