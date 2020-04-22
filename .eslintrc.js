@@ -13,6 +13,7 @@ module.exports = {
         'plugin:unicorn/recommended',
         'plugin:promise/recommended',
         'plugin:sonarjs/recommended',
+        'plugin:jest/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -29,6 +30,7 @@ module.exports = {
         'simple-import-sort',
         'promise',
         'sonarjs',
+        'jest',
         'only-warn',
     ],
     ignorePatterns: ['@generated/**'],

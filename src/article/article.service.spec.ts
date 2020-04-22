@@ -33,7 +33,7 @@ describe('ArticleService', () => {
         repository = module.get(PrismaService).article as typeof repository;
     });
 
-    fit('should be defined', () => {
+    it('should be defined', () => {
         expect(service).toBeDefined();
     });
 
