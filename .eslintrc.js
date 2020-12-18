@@ -14,6 +14,7 @@ module.exports = {
         'plugin:promise/recommended',
         'plugin:sonarjs/recommended',
         'plugin:jest/recommended',
+        'plugin:boundaries/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -30,6 +31,7 @@ module.exports = {
         'promise',
         'sonarjs',
         'jest',
+        'boundaries',
         'only-warn',
     ],
     ignorePatterns: ['@generated/**', '*.config.js', '.*rc.js'],
@@ -88,7 +90,58 @@ module.exports = {
         '@typescript-eslint/ban-ts-ignore': 0,
         '@typescript-eslint/no-unused-vars': 0,
         '@typescript-eslint/explicit-module-boundary-types': 0,
+        // boundaries
+        'boundaries/prefer-recognized-types': 1,
+        'boundaries/entry-point': [
+            1,
+            {
+                default: 'index.ts',
+                byType: {
+                    modules: 'module.ts',
+                    resolvers: 'resolver.ts',
+                    services: 'service.ts',
+                },
+            },
+        ],
+        'boundaries/allowed-types': [
+            1,
+            {
+                allow: {
+                    // modules: ['module'],
+                    // entities: ['entities'],
+                    // usecases: ['entities', 'usecases'],
+                    // adapters: ['entities', 'usecases', 'adapters'],
+                    // external: ['entities', 'usecases', 'adapters', 'external'],
+                    // main: ['entities', 'usecases', 'adapters', 'external', 'main'],
+                    // shared: ['shared'],
+                },
+            },
+        ],
     },
+    settings: {
+        'boundaries/types': [
+            'modules',
+            'resolvers',
+            'services',
+            // 'entities',
+            // 'usecases',
+            // 'adapters',
+            // 'external',
+            // 'main',
+            // 'shared'
+        ],
+        'boundaries/ignore': ['**/*.spec.ts'],
+        'boundaries/alias': {
+            app_modules: 'src/app_modules',
+            // entities: 'src/entities',
+            // usecases: 'src/usecases',
+            // adapters: 'src/adapters',
+            // external: 'src/external',
+            // main: 'src/main',
+            // shared: 'src/shared',
+        },
+    },
+
     overrides: [
         {
             files: ['*.spec.ts', '**/testing/**/*.ts', '*.e2e-spec.ts'],
