@@ -1,6 +1,5 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { CommentDistinctFieldEnum } from './comment-distinct-field.enum';
 import { CommentMaxAggregateInput } from './comment-max-aggregate.input';
 import { CommentMinAggregateInput } from './comment-min-aggregate.input';
 import { CommentOrderByInput } from './comment-order-by.input';
@@ -17,7 +16,7 @@ export class AggregateCommentArgs {
     @Field(() => [CommentOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<CommentOrderByInput> | CommentOrderByInput;
+    orderBy?: Array<CommentOrderByInput>;
 
     @Field(() => CommentWhereUniqueInput, {
         nullable: true,

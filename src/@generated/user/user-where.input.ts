@@ -10,47 +10,47 @@ export class UserWhereInput {
     @Field(() => [UserWhereInput], {
         nullable: true,
     })
-    AND?: UserWhereInput | Array<UserWhereInput>;
+    AND?: Array<UserWhereInput>;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
     })
-    OR?: UserWhereInput | Array<UserWhereInput>;
+    OR?: Array<UserWhereInput>;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
     })
-    NOT?: UserWhereInput | Array<UserWhereInput>;
+    NOT?: Array<UserWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    userId?: StringFilter | string;
+    userId?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    email?: StringFilter | string;
+    email?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    name?: StringFilter | string;
+    name?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    password?: StringFilter | string;
+    password?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    bio?: StringFilter | string;
+    bio?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    image?: StringFilter | string;
+    image?: StringFilter;
 
     @Field(() => UserListRelationFilter, {
         nullable: true,

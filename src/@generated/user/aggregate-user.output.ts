@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 import { UserCountAggregate } from './user-count-aggregate.output';
 import { UserMaxAggregate } from './user-max-aggregate.output';

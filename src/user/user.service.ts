@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { UserRepository } from './user.repository';
@@ -8,18 +8,22 @@ import { UserRepository } from './user.repository';
  */
 @Injectable()
 export class UserService {
+    private readonly logger = new Logger(UserService.name);
+
     constructor(private readonly repository: UserRepository) {}
 
     async update(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput) {
         return this.repository.update({ data, where });
     }
 
-    async findUnique(where: Prisma.UserWhereUniqueInput) {
+    async findOne(where: Prisma.UserWhereUniqueInput) {
         return this.repository.findUnique({ where });
     }
 
     async findByCredentials(data: { email: string; password: string }) {
-        let user = await this.repository.findUnique({ where: { email: data.email } });
+        let user = await this.repository.findUnique({
+            where: { email: data.email },
+        });
         if (!(user && user.password === data.password)) {
             // eslint-disable-next-line unicorn/no-null
             user = null;
@@ -31,8 +35,12 @@ export class UserService {
         return this.repository.randomUser();
     }
 
-    async findMany(args: Prisma.FindManyUserArgs) {
+    async findMany(args: Prisma.UserFindManyArgs) {
         return this.repository.findMany(args);
+    }
+
+    async findUnique(args: Prisma.UserFindUniqueArgs) {
+        return this.repository.findUnique(args);
     }
 
     async create(data: Prisma.UserCreateInput) {
@@ -60,7 +68,9 @@ export class UserService {
         follower: Prisma.UserWhereUniqueInput,
         value: boolean,
     ) {
-        const followersOperation = value ? { connect: follower } : { disconnect: follower };
+        const followersOperation = value
+            ? { connect: follower }
+            : { disconnect: follower };
         return this.repository.update({
             where,
             data: {

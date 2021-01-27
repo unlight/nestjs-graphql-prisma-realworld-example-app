@@ -13,6 +13,8 @@ generator client {
 generator nestgraphql {
     provider = "node node_modules/prisma-nestjs-graphql"
     output = "../src/@generated"
+    types_DateTime_fieldType = "Date | string"
+    types_DateTime_graphqlType = "Date"
 }
 
 model User {

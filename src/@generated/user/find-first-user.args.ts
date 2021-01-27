@@ -1,6 +1,5 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { UserDistinctFieldEnum } from './user-distinct-field.enum';
 import { UserOrderByInput } from './user-order-by.input';
 import { UserScalarFieldEnum } from './user-scalar-field.enum';
 import { UserWhereInput } from './user-where.input';
@@ -16,7 +15,7 @@ export class FindFirstUserArgs {
     @Field(() => [UserOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<UserOrderByInput> | UserOrderByInput;
+    orderBy?: Array<UserOrderByInput>;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,

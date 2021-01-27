@@ -55,5 +55,5 @@ export class StringFilter {
     @Field(() => StringFilter, {
         nullable: true,
     })
-    not?: string | StringFilter;
+    not?: StringFilter;
 }

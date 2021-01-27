@@ -27,20 +27,20 @@ export class ArticleMaxAggregate {
     })
     body?: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     createdAt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     updatedAt?: Date | string;
 
     @Field(() => Int, {
-        nullable: true,
+        nullable: false,
     })
-    favoritesCount?: number;
+    favoritesCount!: number;
 
     @Field(() => String, {
         nullable: true,

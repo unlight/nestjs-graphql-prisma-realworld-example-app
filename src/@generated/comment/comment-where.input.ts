@@ -1,10 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleRelationFilter } from '../article/article-relation-filter.input';
 import { ArticleWhereInput } from '../article/article-where.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
 
 @InputType()
@@ -12,55 +10,55 @@ export class CommentWhereInput {
     @Field(() => [CommentWhereInput], {
         nullable: true,
     })
-    AND?: CommentWhereInput | Array<CommentWhereInput>;
+    AND?: Array<CommentWhereInput>;
 
     @Field(() => [CommentWhereInput], {
         nullable: true,
     })
-    OR?: CommentWhereInput | Array<CommentWhereInput>;
+    OR?: Array<CommentWhereInput>;
 
     @Field(() => [CommentWhereInput], {
         nullable: true,
     })
-    NOT?: CommentWhereInput | Array<CommentWhereInput>;
+    NOT?: Array<CommentWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    commentId?: StringFilter | string;
+    commentId?: StringFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    createdAt?: DateTimeFilter | Date | string;
+    createdAt?: DateTimeFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    updatedAt?: DateTimeFilter | Date | string;
+    updatedAt?: DateTimeFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    body?: StringFilter | string;
+    body?: StringFilter;
 
     @Field(() => UserWhereInput, {
         nullable: true,
     })
-    author?: UserRelationFilter | UserWhereInput;
+    author?: UserWhereInput;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    authorId?: StringFilter | string;
+    authorId?: StringFilter;
 
     @Field(() => ArticleWhereInput, {
         nullable: true,
     })
-    article?: ArticleRelationFilter | ArticleWhereInput;
+    article?: ArticleWhereInput;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    articleId?: StringFilter | string;
+    articleId?: StringFilter;
 }

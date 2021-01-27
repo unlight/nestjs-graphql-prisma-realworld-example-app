@@ -13,58 +13,50 @@ export class TagUpdateManyWithoutArticlesInput {
     @Field(() => [TagCreateWithoutArticlesInput], {
         nullable: true,
     })
-    create?: TagCreateWithoutArticlesInput | Array<TagCreateWithoutArticlesInput>;
+    create?: Array<TagCreateWithoutArticlesInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
     })
-    connect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
+    connect?: Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
     })
-    set?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
+    set?: Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
+    disconnect?: Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
     })
-    delete?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
+    delete?: Array<TagWhereUniqueInput>;
 
     @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], {
         nullable: true,
     })
-    update?:
-        | TagUpdateWithWhereUniqueWithoutArticlesInput
-        | Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
+    update?: Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
 
     @Field(() => [TagUpdateManyWithWhereWithoutArticlesInput], {
         nullable: true,
     })
-    updateMany?:
-        | TagUpdateManyWithWhereWithoutArticlesInput
-        | Array<TagUpdateManyWithWhereWithoutArticlesInput>;
+    updateMany?: Array<TagUpdateManyWithWhereWithoutArticlesInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: TagScalarWhereInput | Array<TagScalarWhereInput>;
+    deleteMany?: Array<TagScalarWhereInput>;
 
     @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], {
         nullable: true,
     })
-    upsert?:
-        | TagUpsertWithWhereUniqueWithoutArticlesInput
-        | Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
+    upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
 
     @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | TagCreateOrConnectWithoutarticlesInput
-        | Array<TagCreateOrConnectWithoutarticlesInput>;
+    connectOrCreate?: Array<TagCreateOrConnectWithoutarticlesInput>;
 }

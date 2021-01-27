@@ -2,6 +2,10 @@ import { Article } from '@prisma/client';
 import fetch from 'node-fetch';
 import waitOn from 'wait-on';
 
+/**
+ * Full end to end black box tests, with real server runnning
+ */
+
 // https://github.com/gothinkster/realworld/tree/master/api
 const apiBaseUrl = 'http://localhost:3000/api';
 const request = (args: {
@@ -21,8 +25,8 @@ const request = (args: {
     });
     if (args.json) {
         response = response
-            .then((r) => r.json())
-            .then((json) => {
+            .then(r => r.json())
+            .then(json => {
                 if (json.statusCode && json.statusCode > 299) {
                     throw json;
                 }
@@ -39,7 +43,7 @@ beforeAll(async () => {
 }, 15_000);
 
 test('server ready', async () => {
-    const result = await fetch(`${apiBaseUrl}`).then((r) => r.statusText);
+    const result = await fetch(`${apiBaseUrl}`).then(r => r.statusText);
     expect(result).toBe('OK');
 });
 
@@ -112,27 +116,35 @@ describe('Registration POST /api/users', () => {
         });
         expect(response.statusText).toBe('Created');
         expect(await response.json()).toEqual({
-            user: {
+            user: expect.objectContaining({
                 email: expect.stringContaining('@toastable.net'),
                 username: randomName,
                 bio: null,
                 image: null,
                 token: expect.any(String),
-            },
+            }),
         });
     });
 });
 
 describe('Get user profile by name', () => {
     it('root', async () => {
-        const response = await request({ method: 'GET', path: '/profiles/root', json: true });
+        const response = await request({
+            method: 'GET',
+            path: '/profiles/root',
+            json: true,
+        });
         expect(response.profile.username).toEqual('root');
     });
 });
 
 describe('List Articles', () => {
     it('GET /api/articles', async () => {
-        const response = await request({ method: 'GET', path: '/articles', json: true });
+        const response = await request({
+            method: 'GET',
+            path: '/articles',
+            json: true,
+        });
         expect(response.articles).toBeTruthy();
     });
 

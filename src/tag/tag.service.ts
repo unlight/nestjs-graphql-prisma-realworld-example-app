@@ -15,7 +15,7 @@ export class TagService {
      * Create tags (if not exists) from array of strings.
      */
     async createTags(tags: string[]) {
-        const upsertOperations = tags.map((name) => {
+        const upsertOperations = tags.map(name => {
             return this.prisma.tag.upsert({
                 where: { name },
                 create: { name },

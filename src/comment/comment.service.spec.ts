@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { createSpyObj } from 'jest-createspyobj';
 
+import { PrismaRepository } from '../prisma/prisma.repository';
 import { PrismaService } from '../prisma/prisma.service';
 import { CommentService } from './comment.service';
 
@@ -12,7 +13,12 @@ describe('CommentService', () => {
         const module: TestingModule = await Test.createTestingModule({
             providers: [
                 CommentService,
-                PrismaService,
+                {
+                    provide: PrismaService,
+                    useValue: {
+                        comment: createSpyObj(PrismaRepository),
+                    },
+                },
                 {
                     provide: Logger,
                     useValue: createSpyObj(Logger),

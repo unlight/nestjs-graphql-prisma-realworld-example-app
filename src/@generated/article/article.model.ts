@@ -36,12 +36,12 @@ export class Article {
     })
     tags?: Array<Tag>;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: false,
     })
     createdAt!: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: false,
     })
     updatedAt!: Date | string;

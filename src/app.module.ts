@@ -1,8 +1,13 @@
 import { Global, Logger, Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { EnvironmentModule } from '@nestjs-steroids/environment';
-import { ApolloErrorConverter, extendMapItem, mapItemBases } from 'apollo-error-converter';
-import { IncomingMessage } from 'http';
+import {
+    ApolloErrorConverter,
+    extendMapItem,
+    mapItemBases,
+} from 'apollo-error-converter';
+import { requestIdProvider, RequestIdToken } from 'app_modules/express-request-id';
+import { Request } from 'express';
 
 import { ApiModule } from './api/api.module';
 import { AppEnvironment } from './app.environment';
@@ -13,25 +18,30 @@ import { PrismaService } from './prisma/prisma.service';
 import { TagModule } from './tag/tag.module';
 import { UserModule } from './user/user.module';
 
-export async function graphqlModuleFactory(prismaService: PrismaService, logger: Logger) {
+export async function graphqlModuleFactory(
+    prismaService: PrismaService,
+    logger: Logger,
+) {
     return {
         tracing: false,
         sortSchema: true,
         autoSchemaFile: '~schema.gql',
-        context: (data: { req: IncomingMessage }) => {
+        context: (data: any) => {
             return {
                 prisma: prismaService,
                 token: undefined as string | undefined,
-                req: data.req,
+                req: data.req as Request,
             };
         },
         formatError: new ApolloErrorConverter({
-            logger,
+            logger: (err: any) => {
+                logger.error(err);
+            },
             errorMap: [
                 {
                     BadRequestException: extendMapItem(mapItemBases.InvalidFields, {
                         logger: true,
-                        data: (err) => {
+                        data: (err: any) => {
                             return err?.response;
                         },
                     }),
@@ -55,7 +65,7 @@ export async function graphqlModuleFactory(prismaService: PrismaService, logger:
         }),
         GraphQLModule.forRootAsync({
             imports: [PrismaModule],
-            inject: [PrismaService],
+            inject: [PrismaService, Logger],
             useFactory: graphqlModuleFactory,
         }),
         ArticleModule,

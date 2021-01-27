@@ -36,7 +36,9 @@ export class CommentResolver {
     ) {
         const articleExists = (await this.articleService.count(where)) !== 0;
         if (!articleExists) {
-            throw new NotFoundException(`Article ${JSON.stringify(where)} does not exist`);
+            throw new NotFoundException(
+                `Article ${JSON.stringify(where)} does not exist`,
+            );
         }
         return this.commentService.get({ where, follower: currentUser });
     }
@@ -50,7 +52,9 @@ export class CommentResolver {
     ) {
         const articleExists = (await this.articleService.count(where)) !== 0;
         if (!articleExists) {
-            throw new NotFoundException(`Article ${JSON.stringify(where)} does not exist`);
+            throw new NotFoundException(
+                `Article ${JSON.stringify(where)} does not exist`,
+            );
         }
         return this.commentService.createComment({
             where,
@@ -63,15 +67,5 @@ export class CommentResolver {
     @UseGuards(GraphqlAuthGuard, AuthorGuard)
     async deleteComment(@Args('where') where: CommentWhereUniqueInput) {
         return this.commentService.delete({ where });
-    }
-
-    @ResolveField(() => String)
-    async updatedAt(@Parent() comment: Comment) {
-        return new Date(comment.updatedAt).toISOString();
-    }
-
-    @ResolveField(() => String)
-    async createdAt(@Parent() comment: Comment) {
-        return new Date(comment.createdAt).toISOString();
     }
 }

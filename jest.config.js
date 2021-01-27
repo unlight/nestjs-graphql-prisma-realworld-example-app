@@ -10,12 +10,19 @@ module.exports = {
     collectCoverage: false,
     coverageDirectory: `${__dirname}/coverage`,
     coverageReporters: ['lcov', 'text'],
-    collectCoverageFrom: ['**/*.ts', '!**/*.spec.ts', '!**/*.module.ts', '!**/@generated/**'],
+    collectCoverageFrom: [
+        '**/*.ts',
+        '!**/*.spec.ts',
+        '!**/*.module.ts',
+        '!**/@generated/**',
+    ],
     testRegex: ['(\\.|/)(test|spec)\\.[jt]sx?$'],
     // testMatch: ['<rootDir>/src/**/*.spec.ts'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
     // modulePathIgnorePatterns: ['<rootDir>/dist'],
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/../' }),
+    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+        prefix: '<rootDir>/../',
+    }),
     // modulePathIgnorePatterns: ['<rootDir>/app_modules'],
     globals: {
         'ts-jest': {

@@ -9,17 +9,15 @@ export class UserCreateManyWithoutFollowersInput {
     @Field(() => [UserCreateWithoutFollowersInput], {
         nullable: true,
     })
-    create?: UserCreateWithoutFollowersInput | Array<UserCreateWithoutFollowersInput>;
+    create?: Array<UserCreateWithoutFollowersInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    connect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserCreateOrConnectWithoutfollowersInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | UserCreateOrConnectWithoutfollowersInput
-        | Array<UserCreateOrConnectWithoutfollowersInput>;
+    connectOrCreate?: Array<UserCreateOrConnectWithoutfollowersInput>;
 }

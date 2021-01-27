@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { CommentWhereUniqueInput } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 import { CommentService } from './comment.service';
 
@@ -14,11 +14,16 @@ export class AuthorGuard implements CanActivate {
     async canActivate(context: ExecutionContext) {
         const graphqlContext = GqlExecutionContext.create(context);
         const request = graphqlContext.getContext().req;
-        const where: CommentWhereUniqueInput | undefined = context.getArgByIndex(1)?.where;
+        const where: Prisma.CommentWhereUniqueInput | undefined = context.getArgByIndex(
+            1,
+        )?.where;
         if (!(request.user && where)) {
             return false;
         }
-        const entity = await this.service.findUnique({ where, select: { authorId: true } });
+        const entity = await this.service.findUnique({
+            where,
+            select: { authorId: true },
+        });
         return Boolean(entity && entity.authorId === request.user.id);
     }
 }

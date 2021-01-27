@@ -6,7 +6,6 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
-import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
 
 @InputType()
@@ -14,42 +13,42 @@ export class ArticleWhereInput {
     @Field(() => [ArticleWhereInput], {
         nullable: true,
     })
-    AND?: ArticleWhereInput | Array<ArticleWhereInput>;
+    AND?: Array<ArticleWhereInput>;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,
     })
-    OR?: ArticleWhereInput | Array<ArticleWhereInput>;
+    OR?: Array<ArticleWhereInput>;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,
     })
-    NOT?: ArticleWhereInput | Array<ArticleWhereInput>;
+    NOT?: Array<ArticleWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    articleId?: StringFilter | string;
+    articleId?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    slug?: StringFilter | string;
+    slug?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    title?: StringFilter | string;
+    title?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    description?: StringFilter | string;
+    description?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    body?: StringFilter | string;
+    body?: StringFilter;
 
     @Field(() => TagListRelationFilter, {
         nullable: true,
@@ -59,27 +58,27 @@ export class ArticleWhereInput {
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    createdAt?: DateTimeFilter | Date | string;
+    createdAt?: DateTimeFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    updatedAt?: DateTimeFilter | Date | string;
+    updatedAt?: DateTimeFilter;
 
     @Field(() => IntFilter, {
         nullable: true,
     })
-    favoritesCount?: IntFilter | number;
+    favoritesCount?: IntFilter;
 
     @Field(() => UserWhereInput, {
         nullable: true,
     })
-    author?: UserRelationFilter | UserWhereInput;
+    author?: UserWhereInput;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    authorId?: StringFilter | string;
+    authorId?: StringFilter;
 
     @Field(() => UserListRelationFilter, {
         nullable: true,

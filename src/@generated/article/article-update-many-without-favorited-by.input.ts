@@ -13,58 +13,50 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
     @Field(() => [ArticleCreateWithoutFavoritedByInput], {
         nullable: true,
     })
-    create?: ArticleCreateWithoutFavoritedByInput | Array<ArticleCreateWithoutFavoritedByInput>;
+    create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    set?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    set?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    disconnect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    delete?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    delete?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput], {
         nullable: true,
     })
-    update?:
-        | ArticleUpdateWithWhereUniqueWithoutFavoritedByInput
-        | Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
+    update?: Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
 
     @Field(() => [ArticleUpdateManyWithWhereWithoutFavoritedByInput], {
         nullable: true,
     })
-    updateMany?:
-        | ArticleUpdateManyWithWhereWithoutFavoritedByInput
-        | Array<ArticleUpdateManyWithWhereWithoutFavoritedByInput>;
+    updateMany?: Array<ArticleUpdateManyWithWhereWithoutFavoritedByInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+    deleteMany?: Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput], {
         nullable: true,
     })
-    upsert?:
-        | ArticleUpsertWithWhereUniqueWithoutFavoritedByInput
-        | Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
+    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
 
     @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | ArticleCreateOrConnectWithoutfavoritedByInput
-        | Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
 }

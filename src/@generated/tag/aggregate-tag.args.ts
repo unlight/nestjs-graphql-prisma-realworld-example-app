@@ -1,6 +1,5 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { TagDistinctFieldEnum } from './tag-distinct-field.enum';
 import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 import { TagMinAggregateInput } from './tag-min-aggregate.input';
 import { TagOrderByInput } from './tag-order-by.input';
@@ -17,7 +16,7 @@ export class AggregateTagArgs {
     @Field(() => [TagOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<TagOrderByInput> | TagOrderByInput;
+    orderBy?: Array<TagOrderByInput>;
 
     @Field(() => TagWhereUniqueInput, {
         nullable: true,

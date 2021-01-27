@@ -8,45 +8,45 @@ export class CommentScalarWhereInput {
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
     })
-    AND?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+    AND?: Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
     })
-    OR?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+    OR?: Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
     })
-    NOT?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+    NOT?: Array<CommentScalarWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    commentId?: StringFilter | string;
+    commentId?: StringFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    createdAt?: DateTimeFilter | Date | string;
+    createdAt?: DateTimeFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    updatedAt?: DateTimeFilter | Date | string;
+    updatedAt?: DateTimeFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    body?: StringFilter | string;
+    body?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    authorId?: StringFilter | string;
+    authorId?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    articleId?: StringFilter | string;
+    articleId?: StringFilter;
 }

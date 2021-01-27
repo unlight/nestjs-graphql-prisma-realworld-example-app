@@ -8,27 +8,27 @@ export class TagWhereInput {
     @Field(() => [TagWhereInput], {
         nullable: true,
     })
-    AND?: TagWhereInput | Array<TagWhereInput>;
+    AND?: Array<TagWhereInput>;
 
     @Field(() => [TagWhereInput], {
         nullable: true,
     })
-    OR?: TagWhereInput | Array<TagWhereInput>;
+    OR?: Array<TagWhereInput>;
 
     @Field(() => [TagWhereInput], {
         nullable: true,
     })
-    NOT?: TagWhereInput | Array<TagWhereInput>;
+    NOT?: Array<TagWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    tagId?: StringFilter | string;
+    tagId?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    name?: StringFilter | string;
+    name?: StringFilter;
 
     @Field(() => ArticleListRelationFilter, {
         nullable: true,

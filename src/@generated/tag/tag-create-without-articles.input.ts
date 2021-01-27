@@ -8,7 +8,7 @@ export class TagCreateWithoutArticlesInput {
     tagId?: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    name?: string;
+    name!: string;
 }

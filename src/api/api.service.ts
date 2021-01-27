@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { Inject, Injectable } from '@nestjs/common';
-import { ArticleWhereInput } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { GraphQLClient } from 'graphql-request';
 
 import { articleFields, commentFields, userFields } from './fragments';
@@ -16,7 +16,9 @@ import { UpdateUserDto } from './models/update-user.dto';
  */
 @Injectable()
 export class ApiService {
-    constructor(@Inject('GraphQLClient') private readonly graphqlClient: GraphQLClient) {}
+    constructor(
+        @Inject('GraphQLClient') private readonly graphqlClient: GraphQLClient,
+    ) {}
 
     /**
      * Send mutation query to create user.
@@ -72,7 +74,9 @@ export class ApiService {
             }
             ${userFields}
         `;
-        return this.graphqlClient.setHeader('Authorization', `Bearer ${token}`).request(query);
+        return this.graphqlClient
+            .setHeader('Authorization', `Bearer ${token}`)
+            .request(query);
     }
 
     /**
@@ -107,9 +111,11 @@ export class ApiService {
             }
             ${userFields}
         `;
-        return this.graphqlClient.setHeader('Authorization', `Bearer ${token}`).request(query, {
-            input: { name },
-        });
+        return this.graphqlClient
+            .setHeader('Authorization', `Bearer ${token}`)
+            .request(query, {
+                input: { name },
+            });
     }
 
     /**
@@ -158,7 +164,7 @@ export class ApiService {
             limit: number;
         }>,
     ) {
-        const where: ArticleWhereInput = {};
+        const where: Prisma.ArticleWhereInput = {};
         if (options.tag) {
             where.tags = { some: { name: { equals: options.tag } } };
         }
@@ -166,7 +172,9 @@ export class ApiService {
             where.author = { name: { equals: options.author } };
         }
         if (options.favorited) {
-            where.favoritedBy = { some: { name: { equals: options.favorited } } };
+            where.favoritedBy = {
+                some: { name: { equals: options.favorited } },
+            };
         }
         let skip: number | undefined;
         if (options.offset && options.offset > 0) {
@@ -212,10 +220,12 @@ export class ApiService {
             }
             ${userFields}
         `;
-        return this.graphqlClient.setHeader('Authorization', `Bearer ${token}`).request(query, {
-            where: { name: username },
-            value: value,
-        });
+        return this.graphqlClient
+            .setHeader('Authorization', `Bearer ${token}`)
+            .request(query, {
+                where: { name: username },
+                value: value,
+            });
     }
 
     /**
@@ -362,7 +372,10 @@ export class ApiService {
         this.graphqlClient.setHeader('Authorization', `Bearer ${args.token}`);
         return this.graphqlClient.request(
             /* GraphQL */ `
-                mutation favoriteArticle($where: ArticleWhereUniqueInput!, $value: Boolean!) {
+                mutation favoriteArticle(
+                    $where: ArticleWhereUniqueInput!
+                    $value: Boolean!
+                ) {
                     article: favoriteArticle(where: $where, value: $value) {
                         ...articleFields
                     }
@@ -384,7 +397,7 @@ export class ApiService {
                 }
             }
         `);
-        response.tags = response.tags.map((tag) => tag.name);
+        response.tags = response.tags.map(tag => tag.name);
         return response;
     }
 }

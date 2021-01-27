@@ -7,45 +7,45 @@ export class UserScalarWhereInput {
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    AND?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    AND?: Array<UserScalarWhereInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    OR?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    OR?: Array<UserScalarWhereInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    NOT?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    NOT?: Array<UserScalarWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    userId?: StringFilter | string;
+    userId?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    email?: StringFilter | string;
+    email?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    name?: StringFilter | string;
+    name?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    password?: StringFilter | string;
+    password?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    bio?: StringFilter | string;
+    bio?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    image?: StringFilter | string;
+    image?: StringFilter;
 }

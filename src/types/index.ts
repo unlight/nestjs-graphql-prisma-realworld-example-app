@@ -6,4 +6,18 @@ export type Await<T> = T extends {
     ? U
     : T;
 
-export type GraphQLContext = ReturnType<Await<ReturnType<typeof graphqlModuleFactory>>['context']>;
+export type GraphQLContext = ReturnType<
+    Await<ReturnType<typeof graphqlModuleFactory>>['context']
+>;
+
+declare global {
+    namespace Express {
+        /**
+         * Same as PassportUserFields.
+         */
+        interface User {
+            id: string;
+            email: string;
+        }
+    }
+}

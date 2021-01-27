@@ -2,12 +2,28 @@ import { ArticleWhereInput } from '@generated/article/article-where.input';
 import { ArticleWhereUniqueInput } from '@generated/article/article-where-unique.input';
 import { FindManyArticleArgs } from '@generated/article/find-many-article.args';
 import { FindManyUserArgs } from '@generated/user/find-many-user.args';
-import { ConflictException, Logger, NotFoundException, UseGuards } from '@nestjs/common';
-import { Args, Info, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+    ConflictException,
+    Logger,
+    NotFoundException,
+    UseGuards,
+} from '@nestjs/common';
+import {
+    Args,
+    Info,
+    Int,
+    Mutation,
+    Parent,
+    Query,
+    ResolveField,
+    Resolver,
+} from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { Prisma } from '@prisma/client';
 import { CurrentUser } from 'app_modules/current-user-decorator';
-import { GraphqlFields, GraphqlFieldsParameter } from 'app_modules/nestjs-graphql-fields';
+import {
+    GraphqlFields,
+    GraphqlFieldsParameter,
+} from 'app_modules/nestjs-graphql-fields';
 import {
     GraphqlAuthGuard,
     OptionalGraphqlAuthGuard,
@@ -17,9 +33,10 @@ import { GraphQLResolveInfo } from 'graphql';
 import { PlainObject } from 'simplytyped';
 
 import { PassportUserFields } from '../auth/models/passport-user-fields';
-import { User } from '../user/models/user';
+import { User } from '../user/models/user.model';
 import { UserService } from '../user/user.service';
 import { ArticleService } from './article.service';
+import { ArticleSelectService } from './article-select.service';
 import { AuthorGuard } from './author.guard';
 import { Article } from './models/article';
 import { ArticleCreateInput } from './models/article-create.input';
@@ -30,12 +47,17 @@ import { ArticleUpdateInput } from './models/article-update.input';
  */
 @Resolver(() => Article)
 export class ArticleResolver {
+    private readonly logger = new Logger(ArticleResolver.name);
+
     constructor(
         private readonly service: ArticleService,
         private readonly userService: UserService,
-        private readonly logger: Logger,
+        private readonly selectService: ArticleSelectService,
     ) {}
 
+    /**
+     * Query articles.
+     */
     @Query(() => [Article])
     @UseGuards(OptionalGraphqlAuthGuard)
     async articles(
@@ -45,34 +67,49 @@ export class ArticleResolver {
         @CurrentUser() currentUser?: PassportUserFields,
     ) {
         const select = new PrismaSelect(info).value;
-        if (graphqlFields?.author?.isFollowing && currentUser) {
-            const articleSelect: Prisma.ArticleSelect = {
-                author: {
-                    select: {
-                        userId: true,
-                        followers: {
-                            select: {
-                                userId: true,
-                            },
-                            where: {
-                                userId: { in: [currentUser.id] },
-                            },
-                        },
-                    },
-                },
-            };
-            PrismaSelect.mergeDeep(select, {
-                select: articleSelect,
-            });
-        }
+        const articleSelect = this.selectService.article(
+            graphqlFields,
+            currentUser?.id,
+        );
+
+        PrismaSelect.mergeDeep(select, {
+            select: articleSelect,
+        });
+
         return this.service.findMany({
             ...args,
             ...select,
         });
     }
 
+    /**
+     * Checks if article is favorited by current user.
+     */
+    @ResolveField(() => Boolean)
+    async favorited(
+        @Parent() article: Article,
+        @CurrentUser() currentUser?: PassportUserFields,
+    ): Promise<boolean> {
+        if (!currentUser) {
+            return false;
+        }
+        if (Array.isArray(article.favoritedBy)) {
+            return article.favoritedBy.some(user => user.userId === currentUser.id);
+        } else {
+            this.logger.warn(
+                'Article.favoritedBy is not defined',
+                'Performance Warning',
+            );
+        }
+        assert(article.articleId);
+        return this.service.isFavorited(article.articleId, currentUser.id);
+    }
+
     @ResolveField(() => [User])
-    async favoritedBy(@Parent() article: Partial<Article>, @Args() args: FindManyUserArgs) {
+    async favoritedBy(
+        @Parent() article: Partial<Article>,
+        @Args() args: FindManyUserArgs,
+    ) {
         if (Array.isArray(article.favoritedBy)) {
             // Already resolved by PrismaSelect plugin
             return article.favoritedBy;
@@ -115,26 +152,18 @@ export class ArticleResolver {
         @CurrentUser() currentUser?: PassportUserFields,
     ) {
         const select = new PrismaSelect(info).value;
-        if (graphqlFields?.author?.isFollowing && currentUser) {
-            const articleSelect: Prisma.ArticleSelect = {
-                author: {
-                    select: {
-                        userId: true,
-                        followers: {
-                            select: {
-                                userId: true,
-                            },
-                            where: {
-                                userId: { in: [currentUser.id] },
-                            },
-                        },
-                    },
-                },
-            };
-            PrismaSelect.mergeDeep(select, {
-                select: articleSelect,
-            });
-        }
+        const articleSelect = this.selectService.article(
+            graphqlFields,
+            currentUser?.id,
+        );
+
+        PrismaSelect.mergeDeep(select, {
+            select: articleSelect,
+        });
+
+        PrismaSelect.mergeDeep(select, {
+            select: articleSelect,
+        });
         return this.service.findUnique({
             where,
             ...select,
@@ -186,7 +215,9 @@ export class ArticleResolver {
     ) {
         const article = await this.service.findUnique({ where });
         if (!article) {
-            throw new NotFoundException(`Article ${JSON.stringify(where)} do not exists`);
+            throw new NotFoundException(
+                `Article ${JSON.stringify(where)} do not exists`,
+            );
         }
         return this.service.updateArticle({
             input: data,
@@ -206,7 +237,9 @@ export class ArticleResolver {
     ) {
         const article = await this.service.findUnique({ where });
         if (!article) {
-            throw new NotFoundException(`Article ${JSON.stringify(where)} do not exists`);
+            throw new NotFoundException(
+                `Article ${JSON.stringify(where)} do not exists`,
+            );
         }
         return this.service.delete({
             where,
@@ -252,35 +285,5 @@ export class ArticleResolver {
                 tags: Boolean(fields.tags),
             },
         });
-    }
-
-    /**
-     * Checks if article is favorited by current user.
-     */
-    @ResolveField(() => Boolean)
-    async favorited(
-        @Parent() article: Article,
-        @CurrentUser() currentUser?: PassportUserFields,
-    ): Promise<boolean> {
-        if (!currentUser) {
-            return false;
-        }
-        if (Array.isArray(article.favoritedBy)) {
-            return article.favoritedBy.some((user) => user.userId === currentUser.id);
-        } else {
-            this.logger.warn('Article.favoritedBy is not defined', 'Performance Warning');
-        }
-        assert(article.articleId);
-        return this.service.isFavorited(article.articleId, currentUser.id);
-    }
-
-    @ResolveField(() => String)
-    async updatedAt(@Parent() article: Article) {
-        return new Date(article.updatedAt).toISOString();
-    }
-
-    @ResolveField(() => String)
-    async createdAt(@Parent() article: Article) {
-        return new Date(article.createdAt).toISOString();
     }
 }

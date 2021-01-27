@@ -38,9 +38,9 @@ export class ArticleCountAggregate {
     updatedAt?: number;
 
     @Field(() => Int, {
-        nullable: true,
+        nullable: false,
     })
-    favoritesCount?: number;
+    favoritesCount!: number;
 
     @Field(() => Int, {
         nullable: true,
@@ -48,7 +48,7 @@ export class ArticleCountAggregate {
     authorId?: number;
 
     @Field(() => Int, {
-        nullable: true,
+        nullable: false,
     })
-    _all?: number;
+    _all!: number;
 }

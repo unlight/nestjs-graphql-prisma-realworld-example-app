@@ -9,17 +9,15 @@ export class TagCreateManyWithoutArticlesInput {
     @Field(() => [TagCreateWithoutArticlesInput], {
         nullable: true,
     })
-    create?: TagCreateWithoutArticlesInput | Array<TagCreateWithoutArticlesInput>;
+    create?: Array<TagCreateWithoutArticlesInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
     })
-    connect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
+    connect?: Array<TagWhereUniqueInput>;
 
     @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | TagCreateOrConnectWithoutarticlesInput
-        | Array<TagCreateOrConnectWithoutarticlesInput>;
+    connectOrCreate?: Array<TagCreateOrConnectWithoutarticlesInput>;
 }

@@ -13,58 +13,50 @@ export class CommentUpdateManyWithoutArticleInput {
     @Field(() => [CommentCreateWithoutArticleInput], {
         nullable: true,
     })
-    create?: CommentCreateWithoutArticleInput | Array<CommentCreateWithoutArticleInput>;
+    create?: Array<CommentCreateWithoutArticleInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    connect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    connect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    set?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    set?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    disconnect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    delete?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    delete?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentUpdateWithWhereUniqueWithoutArticleInput], {
         nullable: true,
     })
-    update?:
-        | CommentUpdateWithWhereUniqueWithoutArticleInput
-        | Array<CommentUpdateWithWhereUniqueWithoutArticleInput>;
+    update?: Array<CommentUpdateWithWhereUniqueWithoutArticleInput>;
 
     @Field(() => [CommentUpdateManyWithWhereWithoutArticleInput], {
         nullable: true,
     })
-    updateMany?:
-        | CommentUpdateManyWithWhereWithoutArticleInput
-        | Array<CommentUpdateManyWithWhereWithoutArticleInput>;
+    updateMany?: Array<CommentUpdateManyWithWhereWithoutArticleInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+    deleteMany?: Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentUpsertWithWhereUniqueWithoutArticleInput], {
         nullable: true,
     })
-    upsert?:
-        | CommentUpsertWithWhereUniqueWithoutArticleInput
-        | Array<CommentUpsertWithWhereUniqueWithoutArticleInput>;
+    upsert?: Array<CommentUpsertWithWhereUniqueWithoutArticleInput>;
 
     @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | CommentCreateOrConnectWithoutarticleInput
-        | Array<CommentCreateOrConnectWithoutarticleInput>;
+    connectOrCreate?: Array<CommentCreateOrConnectWithoutarticleInput>;
 }

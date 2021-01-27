@@ -9,23 +9,23 @@ export class CommentCreateWithoutArticleInput {
     })
     commentId?: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     createdAt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     updatedAt?: Date | string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
 
     @Field(() => UserCreateOneWithoutCommentInput, {
-        nullable: true,
+        nullable: false,
     })
-    author?: UserCreateOneWithoutCommentInput;
+    author!: UserCreateOneWithoutCommentInput;
 }

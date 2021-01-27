@@ -5,6 +5,7 @@ import { IsEnum, IsNumber, Max, Min } from 'class-validator';
 enum NodeEnvironment {
     Development = 'development',
     Production = 'production',
+    Test = 'test',
 }
 
 export class AppEnvironment {
@@ -17,7 +18,7 @@ export class AppEnvironment {
      * Transform is useful for all sorts of transformations or parsing complex values
      * For example: @Transform(value => value.toLowerCase() === 'true')
      */
-    @Transform(parseInt)
+    @Transform(({ value }) => Number.parseInt(value, 10))
     /**
      * Also, you could use class-validator operators for validation of the correctness of environment variables
      */

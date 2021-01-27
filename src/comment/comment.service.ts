@@ -1,10 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-    ArticleWhereUniqueInput,
-    CommentCreateArgs,
-    FindManyCommentArgs,
-    Prisma,
-} from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -20,8 +15,11 @@ export class CommentService {
 
     constructor(private readonly prisma: PrismaService) {}
 
-    async get(args: { where: ArticleWhereUniqueInput; follower?: { id: string } }) {
-        const parameters: FindManyCommentArgs = {
+    async get(args: {
+        where: Prisma.ArticleWhereUniqueInput;
+        follower?: { id: string };
+    }) {
+        const parameters: Prisma.CommentFindManyArgs = {
             where: {
                 article: args.where,
             },
@@ -43,8 +41,12 @@ export class CommentService {
         return this.findMany(parameters);
     }
 
-    async createComment(args: { where: ArticleWhereUniqueInput; body: string; authorId: string }) {
-        const commentCreateArgs: CommentCreateArgs = {
+    async createComment(args: {
+        where: Prisma.ArticleWhereUniqueInput;
+        body: string;
+        authorId: string;
+    }) {
+        const commentCreateArgs: Prisma.CommentCreateArgs = {
             data: {
                 body: args.body,
                 author: {

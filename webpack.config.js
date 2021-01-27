@@ -1,18 +1,16 @@
 const path = require('path');
-const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 
 module.exports = (options = {}) => {
-    const hmr2 = options.hmr2 === true;
     const tsConfigFile = path.resolve(__dirname, 'tsconfig.json');
-    const hotEntry = 'webpack/hot/poll?1000';
     const main = path.resolve(__dirname, 'src/main.ts');
+    const hotEntry = 'webpack/hot/poll?1000';
 
     return {
-        entry: !hmr2 ? [hotEntry, main] : main,
+        entry: main,
         target: 'node',
-        devtool: false,
+        devtool: 'source-map',
         mode: 'none',
         output: {
             filename: 'main.js',
@@ -58,27 +56,16 @@ module.exports = (options = {}) => {
             ],
         },
         plugins: [
-            ...(hmr2
-                ? () => {
-                      const {
-                          default: NodeHotLoaderWebpackPlugin,
-                      } = require('node-hot-loader/NodeHotLoaderWebpackPlugin');
-                      return [
-                          new NodeHotLoaderWebpackPlugin({
-                              fork: false,
-                              args: [],
-                              autoRestart: true,
-                          }),
-                      ];
-                  }
-                : () => {
-                      const StartServerPlugin = require('start-server-nestjs-webpack-plugin');
-                      return [
-                          new webpack.HotModuleReplacementPlugin(),
-                          new webpack.WatchIgnorePlugin({ paths: [/\.js$/, /\.d\.ts$/] }),
-                          new StartServerPlugin({ name: 'main.js' }),
-                      ];
-                  })(),
+            (() => {
+                const {
+                    default: NodeHotLoaderWebpackPlugin,
+                } = require('node-hot-loader/NodeHotLoaderWebpackPlugin');
+                return new NodeHotLoaderWebpackPlugin({
+                    fork: false,
+                    args: [],
+                    autoRestart: true,
+                });
+            })(),
         ],
         stats: {
             version: false,

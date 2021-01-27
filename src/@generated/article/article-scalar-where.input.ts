@@ -9,60 +9,60 @@ export class ArticleScalarWhereInput {
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
     })
-    AND?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+    AND?: Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
     })
-    OR?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+    OR?: Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
     })
-    NOT?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+    NOT?: Array<ArticleScalarWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    articleId?: StringFilter | string;
+    articleId?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    slug?: StringFilter | string;
+    slug?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    title?: StringFilter | string;
+    title?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    description?: StringFilter | string;
+    description?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    body?: StringFilter | string;
+    body?: StringFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    createdAt?: DateTimeFilter | Date | string;
+    createdAt?: DateTimeFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    updatedAt?: DateTimeFilter | Date | string;
+    updatedAt?: DateTimeFilter;
 
     @Field(() => IntFilter, {
         nullable: true,
     })
-    favoritesCount?: IntFilter | number;
+    favoritesCount?: IntFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    authorId?: StringFilter | string;
+    authorId?: StringFilter;
 }

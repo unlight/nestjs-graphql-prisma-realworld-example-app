@@ -7,25 +7,25 @@ export class TagScalarWhereInput {
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
     })
-    AND?: TagScalarWhereInput | Array<TagScalarWhereInput>;
+    AND?: Array<TagScalarWhereInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
     })
-    OR?: TagScalarWhereInput | Array<TagScalarWhereInput>;
+    OR?: Array<TagScalarWhereInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
     })
-    NOT?: TagScalarWhereInput | Array<TagScalarWhereInput>;
+    NOT?: Array<TagScalarWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    tagId?: StringFilter | string;
+    tagId?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    name?: StringFilter | string;
+    name?: StringFilter;
 }

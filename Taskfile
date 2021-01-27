@@ -2,6 +2,17 @@
 PATH="$PWD/node_modules/.bin":$PATH
 set -e
 
+make_layers() {
+    # mkdir src/resolvers
+    # basename $file
+    files=$(/usr/bin/find src -name *.resolver.ts)
+    for file in $files; do
+        # basename=$(basename $file)
+        ln -Pvf $file src/resolvers
+        # ln -rsv ./src/article/article.resolver.ts ./src/resolvers/article.resolver.ts
+    done
+}
+
 api_spec() {
     export APIURL='localhost:3000/api'
     sh test/run-api-tests.sh
@@ -23,7 +34,7 @@ build() {
     # Copy prisma schema and migrations
     mkdir -p dist/prisma/migrations
     if [ -d prisma/migrations ]; then
-        cp -r prisma/migrations/* dist/prisma/migrations
+        cp -r prisma/migrations dist/prisma
         cp prisma/schema.prisma dist/prisma
     fi
     # Copy @prisma/client

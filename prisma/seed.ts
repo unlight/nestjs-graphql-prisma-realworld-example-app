@@ -71,13 +71,23 @@ async function main() {
             author: { connect: { name: 'root' } },
             title: 'Browsick',
             slug: 'browsick',
-            body: 'Planchet muscicide gegger binodous overdistantness annullation enquicken',
+            body:
+                'Planchet muscicide gegger binodous overdistantness annullation enquicken',
             description: 'Siphonophora precommend confiture',
             comments: {
                 create: [
-                    { author: { connect: { name: 'root' } }, body: 'My first article :)' },
-                    { author: { connect: { name: 'bob' } }, body: 'Bob is here, second comment!' },
-                    { author: { connect: { name: 'alice' } }, body: "This is alice's comment." },
+                    {
+                        author: { connect: { name: 'root' } },
+                        body: 'My first article :)',
+                    },
+                    {
+                        author: { connect: { name: 'bob' } },
+                        body: 'Bob is here, second comment!',
+                    },
+                    {
+                        author: { connect: { name: 'alice' } },
+                        body: "This is alice's comment.",
+                    },
                 ],
             },
             tags: {
@@ -91,7 +101,9 @@ async function main() {
                 ],
             },
             favoritesCount: 3,
-            favoritedBy: { connect: [{ name: 'root' }, { name: 'bob' }, { name: 'alice' }] },
+            favoritedBy: {
+                connect: [{ name: 'root' }, { name: 'bob' }, { name: 'alice' }],
+            },
         },
     });
 
@@ -100,17 +112,31 @@ async function main() {
             author: { connect: { name: 'root' } },
             title: 'Overnew',
             slug: 'overnew',
-            body: 'Photostereograph esophagostenosis histopathology convallariaceous',
+            body:
+                'Photostereograph esophagostenosis histopathology convallariaceous',
             description: 'Homogonously postclassical cellar',
             comments: {
                 create: [
-                    { author: { connect: { name: 'root' } }, body: '1. endoplastron' },
-                    { author: { connect: { name: 'bob' } }, body: '2. rogatory' },
-                    { author: { connect: { name: 'alice' } }, body: '3. aridity' },
+                    {
+                        author: { connect: { name: 'root' } },
+                        body: '1. endoplastron',
+                    },
+                    {
+                        author: { connect: { name: 'bob' } },
+                        body: '2. rogatory',
+                    },
+                    {
+                        author: { connect: { name: 'alice' } },
+                        body: '3. aridity',
+                    },
                 ],
             },
             tags: {
-                create: [{ name: 'interrogator' }, { name: 'understream' }, { name: 'vinculum' }],
+                create: [
+                    { name: 'interrogator' },
+                    { name: 'understream' },
+                    { name: 'vinculum' },
+                ],
                 connect: [{ name: 'angular' }, { name: 'nestjs' }],
             },
             favoritesCount: 2,
@@ -127,7 +153,12 @@ async function main() {
                 'Fermentative poignantly northest psammosarcoma Antu hydrosomatous hemipteran bronchotyphoid',
             description: 'Polymeride noblewoman hasher presentisttulip',
             comments: {
-                create: [{ author: { connect: { name: 'bob' } }, body: '4. heptastylar' }],
+                create: [
+                    {
+                        author: { connect: { name: 'bob' } },
+                        body: '4. heptastylar',
+                    },
+                ],
             },
         },
     });

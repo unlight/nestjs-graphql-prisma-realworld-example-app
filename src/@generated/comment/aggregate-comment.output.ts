@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 import { CommentCountAggregate } from './comment-count-aggregate.output';
 import { CommentMaxAggregate } from './comment-max-aggregate.output';

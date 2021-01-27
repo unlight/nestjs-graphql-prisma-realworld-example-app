@@ -2,37 +2,37 @@ import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class DateTimeFilter {
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     equals?: Date | string;
 
-    @Field(() => [String], {
+    @Field(() => [Date], {
         nullable: true,
     })
     in?: Array<Date> | Array<string>;
 
-    @Field(() => [String], {
+    @Field(() => [Date], {
         nullable: true,
     })
     notIn?: Array<Date> | Array<string>;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     lt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     lte?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     gt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     gte?: Date | string;
@@ -40,5 +40,5 @@ export class DateTimeFilter {
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    not?: Date | string | DateTimeFilter;
+    not?: DateTimeFilter;
 }

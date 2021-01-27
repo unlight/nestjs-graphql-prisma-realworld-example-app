@@ -18,7 +18,11 @@ export class SlugService {
      * Generate slug for article.
      * Tries several times until get unique.
      */
-    async generate(string: string, isUnique: (string: string) => Promise<boolean>, attempt = 1) {
+    async generate(
+        string: string,
+        isUnique: (string: string) => Promise<boolean>,
+        attempt = 1,
+    ) {
         let slug = this.slugify(string);
         if (attempt === 1 && (await isUnique(slug))) {
             return slug;
@@ -27,7 +31,10 @@ export class SlugService {
             return `${slug}-${String(attempt)}`;
         }
         if (attempt > 3) {
-            const [suffix] = Number.parseInt(randomBytes(attempt).toString('hex'), 16).toString(36);
+            const [suffix] = Number.parseInt(
+                randomBytes(attempt).toString('hex'),
+                16,
+            ).toString(36);
             slug = `${slug}-${suffix}`;
             if (await isUnique(slug)) {
                 return slug;

@@ -9,17 +9,15 @@ export class ArticleCreateManyWithoutFavoritedByInput {
     @Field(() => [ArticleCreateWithoutFavoritedByInput], {
         nullable: true,
     })
-    create?: ArticleCreateWithoutFavoritedByInput | Array<ArticleCreateWithoutFavoritedByInput>;
+    create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | ArticleCreateOrConnectWithoutfavoritedByInput
-        | Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
 }

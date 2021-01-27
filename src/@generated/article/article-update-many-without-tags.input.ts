@@ -13,58 +13,50 @@ export class ArticleUpdateManyWithoutTagsInput {
     @Field(() => [ArticleCreateWithoutTagsInput], {
         nullable: true,
     })
-    create?: ArticleCreateWithoutTagsInput | Array<ArticleCreateWithoutTagsInput>;
+    create?: Array<ArticleCreateWithoutTagsInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    set?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    set?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    disconnect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    delete?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    delete?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutTagsInput], {
         nullable: true,
     })
-    update?:
-        | ArticleUpdateWithWhereUniqueWithoutTagsInput
-        | Array<ArticleUpdateWithWhereUniqueWithoutTagsInput>;
+    update?: Array<ArticleUpdateWithWhereUniqueWithoutTagsInput>;
 
     @Field(() => [ArticleUpdateManyWithWhereWithoutTagsInput], {
         nullable: true,
     })
-    updateMany?:
-        | ArticleUpdateManyWithWhereWithoutTagsInput
-        | Array<ArticleUpdateManyWithWhereWithoutTagsInput>;
+    updateMany?: Array<ArticleUpdateManyWithWhereWithoutTagsInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+    deleteMany?: Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutTagsInput], {
         nullable: true,
     })
-    upsert?:
-        | ArticleUpsertWithWhereUniqueWithoutTagsInput
-        | Array<ArticleUpsertWithWhereUniqueWithoutTagsInput>;
+    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutTagsInput>;
 
     @Field(() => [ArticleCreateOrConnectWithouttagsInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | ArticleCreateOrConnectWithouttagsInput
-        | Array<ArticleCreateOrConnectWithouttagsInput>;
+    connectOrCreate?: Array<ArticleCreateOrConnectWithouttagsInput>;
 }

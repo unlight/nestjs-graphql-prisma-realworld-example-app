@@ -24,8 +24,10 @@ describe('UserService', () => {
     });
 
     it('find one user', async () => {
-        await service.findUnique({ userId: 'u' });
-        expect(repository.findUnique).toHaveBeenCalledWith({ where: { userId: 'u' } });
+        await service.findOne({ userId: 'u' });
+        expect(repository.findUnique).toHaveBeenCalledWith({
+            where: { userId: 'u' },
+        });
     });
 
     it('follow should call connect if value is true', async () => {

@@ -5,15 +5,15 @@ import { classValidatorFlatFormatter } from '.';
 
 describe('classValidatorFlatFormatter', () => {
     it('single error object', () => {
-        const error: Partial<ValidationError> = {
+        const error: ValidationError = {
             value: 'aa@mai1l1',
             property: 'email',
             children: [],
             constraints: {
                 isEmail: 'email must be an email',
-            },
+            } as Record<string, string>,
         };
-        expect(classValidatorFlatFormatter([error] as ValidationError[])).toEqual(stripIndents`
+        expect(classValidatorFlatFormatter([error])).toEqual(stripIndents`
         email: email must be an email (isEmail).
         `);
     });
@@ -37,7 +37,8 @@ describe('classValidatorFlatFormatter', () => {
                 },
             },
         ];
-        expect(classValidatorFlatFormatter(errors as ValidationError[])).toEqual(stripIndents`
+        expect(classValidatorFlatFormatter(errors as ValidationError[]))
+            .toEqual(stripIndents`
         name: name must be longer than or equal to 3 characters (minLength),
         password: password should not be empty (isNotEmpty).
         `);
@@ -55,7 +56,8 @@ describe('classValidatorFlatFormatter', () => {
                 },
             },
         ];
-        expect(classValidatorFlatFormatter(errors as ValidationError[])).toEqual(stripIndents`
+        expect(classValidatorFlatFormatter(errors as ValidationError[]))
+            .toEqual(stripIndents`
             name: minLength error message (minLength),
             name: name should not be empty (isNotEmpty).
         `);
@@ -76,7 +78,8 @@ describe('classValidatorFlatFormatter', () => {
                 },
             },
         ];
-        expect(classValidatorFlatFormatter(errors as ValidationError[])).toEqual(stripIndents`
+        expect(classValidatorFlatFormatter(errors as ValidationError[]))
+            .toEqual(stripIndents`
             user: should not be empty (isNotEmpty),
             user.name: alnum error (alnum).
         `);
