@@ -1,4 +1,4 @@
-import { ArticleAuthor } from './article-author.interface';
+import { ArticleAuthor } from './article-author';
 
 export interface Article {
     slug: string;

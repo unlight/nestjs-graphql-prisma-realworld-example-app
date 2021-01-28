@@ -4,7 +4,7 @@ import { randomBytes } from 'crypto';
 
 import { AppEnvironment } from '../app.environment';
 import { User } from '../user/models/user.model';
-import { SessionTokenFields } from './models/session-user-fields';
+import { SessionTokenFields } from './types';
 
 /**
  * Authentication service.

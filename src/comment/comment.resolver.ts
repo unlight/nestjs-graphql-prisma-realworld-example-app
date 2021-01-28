@@ -1,20 +1,18 @@
 import { ArticleWhereUniqueInput } from '@generated/article/article-where-unique.input';
 import { CommentWhereUniqueInput } from '@generated/comment/comment-where-unique.input';
 import { NotFoundException, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'app_modules/current-user-decorator';
-import { GraphqlFields } from 'app_modules/nestjs-graphql-fields';
 import {
     GraphqlAuthGuard,
     OptionalGraphqlAuthGuard,
 } from 'app_modules/nestjs-passport-graphql-auth-guard';
-import { PlainObject } from 'simplytyped';
 
 import { ArticleService } from '../article/article.service';
 import { PassportUserFields } from '../auth';
 import { AuthorGuard } from './author.guard';
 import { CommentService } from './comment.service';
-import { Comment } from './models/comment';
+import { Comment } from './models/comment.model';
 import { CreateCommentInput } from './models/create-comment.input';
 
 /**
@@ -32,7 +30,6 @@ export class CommentResolver {
     async articleComments(
         @Args('where') where: ArticleWhereUniqueInput,
         @CurrentUser() currentUser: PassportUserFields,
-        @GraphqlFields() fields: PlainObject,
     ) {
         const articleExists = (await this.articleService.count(where)) !== 0;
         if (!articleExists) {

@@ -2,7 +2,7 @@ import { Inject, Injectable, Scope } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 
 import { GraphQLContext } from '../types';
-import { PassportUserFields } from './models/passport-user-fields';
+import { PassportUserFields } from './types';
 
 /**
  * TODO: Problem with this Scope.REQUEST every dependant service

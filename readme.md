@@ -69,9 +69,15 @@ to graphql api.
 autocannon -m POST -i body.json -H "Content-Type: application/json" http://localhost:3000/graphql
 ```
 
-## Feedback
+## Project Structure
 
--   Add debug info
--   Make error message more descriptive
-    `\Dev\nestjs-graphql-prisma-realworld-example-app\src\article\article.module.ts`
-    `9:29 warning Usage of 'service' is not allowed in 'module' boundaries/element-types`
+-   All unit test have `.spec.ts` extension and lays near source
+-   `src` - All source code
+-   `src/{feature}` - Feature root folder (e.g. `user`)
+-   `src/{feature}/types` - Types and interfaces
+-   `src/{feature}/entities` - Entities (e.g. `user.entity`, `user.model` (GraphQL object type)),
+    decorators (e.g. maxlength, required, etc. can be used because business logic
+-   `src/{feature}/usecases` - Use cases (e.g. `create-user.usecase.ts`, `user-create.input.ts` GraphQL input type)
+-   `src/{feature}/interactors` - Alt name for use case
+    -   `src/{feature}/interactors/{usecase}.input.ts` - interface
+    -   `src/{feature}/interactors/{usecase}.output.ts` - interface

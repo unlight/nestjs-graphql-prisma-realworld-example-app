@@ -142,7 +142,12 @@ module.exports = {
         'import/resolver': {
             typescript: {},
         },
-        'boundaries/ignore': ['**/*.spec.ts', '**/testing/**', '**/@generated/**'],
+        'boundaries/ignore': [
+            '**/*.spec.ts',
+            '**/testing/**',
+            '**/@generated/**',
+            'src/main.ts',
+        ],
         'boundaries/elements': [
             {
                 type: 'module',
@@ -193,8 +198,8 @@ module.exports = {
                 capture: ['base', 'feature', 'elementName'],
             },
             {
-                type: 'validator',
-                pattern: '**/*/*.validator.ts',
+                type: 'model',
+                pattern: '**/*/models/*.{input,output,args,model,interface}.ts',
                 mode: 'file',
                 capture: ['base', 'feature', 'elementName'],
             },

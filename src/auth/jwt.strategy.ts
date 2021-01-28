@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PlainObject } from 'simplytyped';
 
-import { PassportUserFields } from './models/passport-user-fields';
+import { PassportUserFields } from './types';
 
 /**
  * Use jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Token') if you have
