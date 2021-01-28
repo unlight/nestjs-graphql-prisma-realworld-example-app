@@ -28,7 +28,7 @@
     "start:dev:d": "nest start --watch --path tsconfig.json --exec \"node --inspect -r dotenv-flow/config\"",
     "start:debug": "nest start --debug --watch --path tsconfig.json",
     "start:prod": "node dist/src/main",
-    "eslint": "eslint \"{src,test}/**/*.ts\"",
+    "eslint": "node node_modules/eslint/bin/eslint \"{src,test}/**/*.ts\"",
     "eslint:fix": "npm run eslint -- --fix",
     "eslint:w": "watchexec -w src \"npm run eslint\"",
     "tscheck": "echo tscheck... && tsc --noEmit --incremental false",

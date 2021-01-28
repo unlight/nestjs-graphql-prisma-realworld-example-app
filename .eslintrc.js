@@ -90,8 +90,9 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 0,
         '@typescript-eslint/explicit-module-boundary-types': 0,
         // boundaries
+        'boundaries/no-unknown-files': 1,
         'boundaries/element-types': [
-            1,
+            0,
             {
                 default: 'disallow',
                 rules: [
@@ -141,7 +142,7 @@ module.exports = {
         'import/resolver': {
             typescript: {},
         },
-        'boundaries/ignore': ['**/*.spec.ts'],
+        'boundaries/ignore': ['**/*.spec.ts', '**/testing/**', '**/@generated/**'],
         'boundaries/elements': [
             {
                 type: 'module',
@@ -168,6 +169,12 @@ module.exports = {
                 capture: ['base', 'feature', 'elementName'],
             },
             {
+                type: 'repository',
+                pattern: '**/*/*.repository.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
                 type: 'guard',
                 pattern: '**/*/*.guard.ts',
                 mode: 'file',
@@ -176,6 +183,18 @@ module.exports = {
             {
                 type: 'interceptor',
                 pattern: '**/*/*.interceptor.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'validator',
+                pattern: '**/*/*.validator.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'validator',
+                pattern: '**/*/*.validator.ts',
                 mode: 'file',
                 capture: ['base', 'feature', 'elementName'],
             },

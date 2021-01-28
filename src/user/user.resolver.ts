@@ -31,9 +31,9 @@ import { AuthService } from '../auth/auth.service';
 import { SessionService } from '../auth/session.service';
 import { GraphQLContext } from '../types';
 import { User } from './models/user.model';
-import { UserCreateInput } from './models/user-create-input';
-import { UserLoginInput } from './models/user-login-input';
-import { UserUpdateInput } from './models/user-update-input';
+import { UserCreateInput } from './models/user-create.input';
+import { UserLoginInput } from './models/user-login.input';
+import { UserUpdateInput } from './models/user-update.input';
 import { UserService } from './user.service';
 
 /**
