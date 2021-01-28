@@ -68,3 +68,10 @@ to graphql api.
 ```
 autocannon -m POST -i body.json -H "Content-Type: application/json" http://localhost:3000/graphql
 ```
+
+## Feedback
+
+-   Add debug info
+-   Make error message more descriptive
+    `\Dev\nestjs-graphql-prisma-realworld-example-app\src\article\article.module.ts`
+    `9:29 warning Usage of 'service' is not allowed in 'module' boundaries/element-types`

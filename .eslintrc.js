@@ -14,7 +14,6 @@ module.exports = {
         'plugin:promise/recommended',
         'plugin:sonarjs/recommended',
         'plugin:jest/recommended',
-        'plugin:boundaries/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -40,11 +39,7 @@ module.exports = {
         'no-unused-vars': 0,
         'no-undef': 0,
         'consistent-return': [1, { treatUndefinedAsUnspecified: true }],
-        quotes: [
-            1,
-            'single',
-            { allowTemplateLiterals: true, avoidEscape: true },
-        ],
+        quotes: [1, 'single', { allowTemplateLiterals: true, avoidEscape: true }],
         semi: [1, 'always'],
         'max-lines': [1, { max: 300 }],
         'max-params': [1, { max: 5 }],
@@ -95,55 +90,146 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 0,
         '@typescript-eslint/explicit-module-boundary-types': 0,
         // boundaries
-        'boundaries/prefer-recognized-types': 1,
-        'boundaries/entry-point': [
+        'boundaries/element-types': [
             1,
             {
-                default: 'index.ts',
-                byType: {
-                    modules: 'module.ts',
-                    resolvers: 'resolver.ts',
-                    services: 'service.ts',
-                },
+                default: 'disallow',
+                rules: [
+                    // {
+                    //     from: 'app',
+                    //     allow: 'module',
+                    // },
+                    {
+                        from: 'module',
+                        allow: [
+                            'module',
+                            ['controller', { feature: '${feature}' }],
+                            ['resolver', { feature: '${feature}' }],
+                            ['service', { feature: '${feature}' }],
+                            ['interceptor', { feature: '${feature}' }],
+                        ],
+                    },
+                    {
+                        from: ['controller', 'resolver', 'guard', 'interceptor'],
+                        allow: [
+                            // 'common',
+                            ['service', { feature: '${feature}' }],
+                            // ['interface', { feature: '${feature}' }],
+                            // ['dto', { feature: '${feature}' }],
+                        ],
+                    },
+                    // {
+                    //     from: 'service',
+                    //     allow: [['interface', { feature: '${feature}' }]],
+                    // },
+                ],
             },
         ],
-        'boundaries/allowed-types': [
-            1,
-            {
-                allow: {
-                    // modules: ['module'],
-                    // entities: ['entities'],
-                    // usecases: ['entities', 'usecases'],
-                    // adapters: ['entities', 'usecases', 'adapters'],
-                    // external: ['entities', 'usecases', 'adapters', 'external'],
-                    // main: ['entities', 'usecases', 'adapters', 'external', 'main'],
-                    // shared: ['shared'],
-                },
-            },
-        ],
+        // 'boundaries/entry-point': [
+        //     1,
+        //     {
+        //         default: 'index.ts',
+        //         byType: {
+        //             modules: 'module.ts',
+        //             resolvers: 'resolver.ts',
+        //             services: 'service.ts',
+        //         },
+        //     },
+        // ],
     },
     settings: {
-        'boundaries/types': [
-            'modules',
-            'resolvers',
-            'services',
-            // 'entities',
-            // 'usecases',
-            // 'adapters',
-            // 'external',
-            // 'main',
-            // 'shared'
-        ],
-        'boundaries/ignore': ['**/*.spec.ts'],
-        'boundaries/alias': {
-            app_modules: 'src/app_modules',
-            // entities: 'src/entities',
-            // usecases: 'src/usecases',
-            // adapters: 'src/adapters',
-            // external: 'src/external',
-            // main: 'src/main',
-            // shared: 'src/shared',
+        'import/resolver': {
+            typescript: {},
         },
+        'boundaries/ignore': ['**/*.spec.ts'],
+        'boundaries/elements': [
+            {
+                type: 'module',
+                pattern: '**/*/*.module.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'resolver',
+                pattern: '**/*/*.resolver.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'controller',
+                pattern: '**/*/*.controller.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'service',
+                pattern: '**/*/*.service.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'guard',
+                pattern: '**/*/*.guard.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'interceptor',
+                pattern: '**/*/*.interceptor.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            // {
+            //   "type": "helpers",
+            //   "pattern": "helpers/*/*.js",
+            //   "mode": "file",
+            //   "capture": ["category", "elementName"]
+            // },
+            // {
+            //   "type": "components",
+            //   "pattern": "components/*/*",
+            //   "capture": ["family", "elementName"]
+            // },
+            // {
+            //   "type": "modules",
+            //   "pattern": "module/*",
+            //   "capture": ["elementName"]
+            // },
+            // {
+            //     type: 'main',
+            //     mode: 'file',
+            //     pattern: '*/main.js',
+            // },
+            // {
+            //     type: 'app',
+            //     mode: 'file',
+            //     pattern: '*/app.module.js',
+            // },
+            // {
+            //     type: 'module',
+            //     pattern: '**/*/*.module.js',
+            //     mode: 'file',
+            //     capture: ['base', 'feature', 'fileName'],
+            // },
+            // {
+            //     type: 'interface',
+            //     pattern: '**/*/interfaces/*.interface.js',
+            //     mode: 'file',
+            //     capture: ['base', 'feature', 'fileName'],
+            // },
+            // {
+            //     type: 'dto',
+            //     pattern: '**/*/dto/*.dto.js',
+            //     mode: 'file',
+            //     capture: ['base', 'feature', 'fileName'],
+            // },
+            // {
+            //     type: 'common',
+            //     pattern: '**/common/*/*.*.js',
+            //     mode: 'file',
+            //     capture: ['base', 'category', 'fileName'],
+            // },
+        ],
     },
 
     overrides: [
