@@ -98,8 +98,8 @@ module.exports = {
                 default: 'disallow',
                 rules: [
                     {
-                        from: 'type',
-                        allow: '*',
+                        from: '*',
+                        allow: 'common',
                     },
                     {
                         from: 'module',
@@ -125,14 +125,22 @@ module.exports = {
                             'validator',
                         ],
                         allow: [
-                            'common',
                             ['service', { feature: '${feature}' }],
                             ['model', { feature: '${feature}' }],
                         ],
                     },
                     {
+                        from: 'service',
+                        allow: ['service'],
+                    },
+                    {
                         from: ['controller', 'resolver'],
-                        allow: ['common', 'service'],
+                        allow: [
+                            'common',
+                            'service',
+                            ['guard', { feature: '${feature}' }],
+                            ['interceptor', { feature: '${feature}' }],
+                        ],
                     },
                 ],
             },
@@ -163,11 +171,6 @@ module.exports = {
             'src/main.ts',
         ],
         'boundaries/elements': [
-            {
-                type: 'configuration',
-                pattern: 'src/app.environment.ts',
-                mode: 'file',
-            },
             {
                 type: 'common',
                 pattern: 'app_modules/*',
@@ -240,6 +243,12 @@ module.exports = {
                 mode: 'file',
                 capture: ['base', 'feature', 'elementName'],
             },
+            // {
+            //     type: 'model',
+            //     pattern: '**/*/*.model.ts',
+            //     mode: 'file',
+            //     capture: ['base', 'feature', 'elementName'],
+            // },
         ],
     },
     overrides: [
