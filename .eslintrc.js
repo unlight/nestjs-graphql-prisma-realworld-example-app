@@ -92,14 +92,10 @@ module.exports = {
         // boundaries
         'boundaries/no-unknown-files': 1,
         'boundaries/element-types': [
-            0,
+            0, // todo: enable
             {
                 default: 'disallow',
                 rules: [
-                    // {
-                    //     from: 'app',
-                    //     allow: 'module',
-                    // },
                     {
                         from: 'module',
                         allow: [
@@ -146,9 +142,27 @@ module.exports = {
             '**/*.spec.ts',
             '**/testing/**',
             '**/@generated/**',
+            '**/src/api/**',
             'src/main.ts',
         ],
         'boundaries/elements': [
+            {
+                type: 'configuration',
+                pattern: 'src/app.environment.ts',
+                mode: 'file',
+            },
+            {
+                type: 'component',
+                pattern: 'app_modules/*',
+                mode: 'folder',
+                capture: ['componentName'],
+            },
+            {
+                type: 'type',
+                pattern: '**/*/types',
+                mode: 'folder',
+                capture: ['base', 'feature'],
+            },
             {
                 type: 'module',
                 pattern: '**/*/*.module.ts',
@@ -199,63 +213,12 @@ module.exports = {
             },
             {
                 type: 'model',
-                pattern: '**/*/models/*.{input,output,args,model,interface}.ts',
+                pattern: '**/*/models/*.{input,output,args,model,dto}.ts',
                 mode: 'file',
                 capture: ['base', 'feature', 'elementName'],
             },
-            // {
-            //   "type": "helpers",
-            //   "pattern": "helpers/*/*.js",
-            //   "mode": "file",
-            //   "capture": ["category", "elementName"]
-            // },
-            // {
-            //   "type": "components",
-            //   "pattern": "components/*/*",
-            //   "capture": ["family", "elementName"]
-            // },
-            // {
-            //   "type": "modules",
-            //   "pattern": "module/*",
-            //   "capture": ["elementName"]
-            // },
-            // {
-            //     type: 'main',
-            //     mode: 'file',
-            //     pattern: '*/main.js',
-            // },
-            // {
-            //     type: 'app',
-            //     mode: 'file',
-            //     pattern: '*/app.module.js',
-            // },
-            // {
-            //     type: 'module',
-            //     pattern: '**/*/*.module.js',
-            //     mode: 'file',
-            //     capture: ['base', 'feature', 'fileName'],
-            // },
-            // {
-            //     type: 'interface',
-            //     pattern: '**/*/interfaces/*.interface.js',
-            //     mode: 'file',
-            //     capture: ['base', 'feature', 'fileName'],
-            // },
-            // {
-            //     type: 'dto',
-            //     pattern: '**/*/dto/*.dto.js',
-            //     mode: 'file',
-            //     capture: ['base', 'feature', 'fileName'],
-            // },
-            // {
-            //     type: 'common',
-            //     pattern: '**/common/*/*.*.js',
-            //     mode: 'file',
-            //     capture: ['base', 'category', 'fileName'],
-            // },
         ],
     },
-
     overrides: [
         {
             files: ['*.spec.ts', '**/testing/**/*.ts', '*.e2e-spec.ts'],
