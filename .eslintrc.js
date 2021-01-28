@@ -91,11 +91,16 @@ module.exports = {
         '@typescript-eslint/explicit-module-boundary-types': 0,
         // boundaries
         'boundaries/no-unknown-files': 1,
+        'boundaries/no-private': [1, { allowUncles: true }],
         'boundaries/element-types': [
-            0, // todo: enable
+            1,
             {
                 default: 'disallow',
                 rules: [
+                    {
+                        from: 'type',
+                        allow: '*',
+                    },
                     {
                         from: 'module',
                         allow: [
@@ -104,35 +109,47 @@ module.exports = {
                             ['resolver', { feature: '${feature}' }],
                             ['service', { feature: '${feature}' }],
                             ['interceptor', { feature: '${feature}' }],
+                            ['repository', { feature: '${feature}' }],
+                            ['validator', { feature: '${feature}' }],
+                            ['model', { feature: '${feature}' }],
                         ],
                     },
                     {
-                        from: ['controller', 'resolver', 'guard', 'interceptor'],
+                        from: [
+                            'controller',
+                            'resolver',
+                            'guard',
+                            'interceptor',
+                            'service',
+                            'repository',
+                            'validator',
+                        ],
                         allow: [
-                            // 'common',
+                            'common',
                             ['service', { feature: '${feature}' }],
-                            // ['interface', { feature: '${feature}' }],
-                            // ['dto', { feature: '${feature}' }],
+                            ['model', { feature: '${feature}' }],
                         ],
                     },
-                    // {
-                    //     from: 'service',
-                    //     allow: [['interface', { feature: '${feature}' }]],
-                    // },
+                    {
+                        from: ['controller', 'resolver'],
+                        allow: ['common', 'service'],
+                    },
                 ],
             },
         ],
-        // 'boundaries/entry-point': [
-        //     1,
-        //     {
-        //         default: 'index.ts',
-        //         byType: {
-        //             modules: 'module.ts',
-        //             resolvers: 'resolver.ts',
-        //             services: 'service.ts',
-        //         },
-        //     },
-        // ],
+        'boundaries/entry-point': [
+            1,
+            {
+                default: 'allow',
+                rules: [
+                    {
+                        target: ['type'],
+                        disallow: ['*'],
+                        allow: 'index.ts',
+                    },
+                ],
+            },
+        ],
     },
     settings: {
         'import/resolver': {
@@ -152,10 +169,16 @@ module.exports = {
                 mode: 'file',
             },
             {
-                type: 'component',
+                type: 'common',
                 pattern: 'app_modules/*',
                 mode: 'folder',
-                capture: ['componentName'],
+                capture: ['elementName'],
+            },
+            {
+                type: 'common',
+                pattern: 'src/prisma/*',
+                mode: 'file',
+                capture: ['elementName'],
             },
             {
                 type: 'type',

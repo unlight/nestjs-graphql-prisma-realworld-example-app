@@ -32,7 +32,7 @@ import assert from 'assert';
 import { GraphQLResolveInfo } from 'graphql';
 import { PlainObject } from 'simplytyped';
 
-import { PassportUserFields } from '../auth/types/passport-user-fields'; // todo: private rule
+import { PassportUserFields } from '../auth/types';
 import { User } from '../user/models/user.model';
 import { UserService } from '../user/user.service';
 import { ArticleService } from './article.service';
