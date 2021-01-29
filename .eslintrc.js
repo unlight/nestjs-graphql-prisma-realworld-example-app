@@ -34,6 +34,96 @@ module.exports = {
         'only-warn',
     ],
     ignorePatterns: ['@generated/**', '*.config.js', '.*rc.js'],
+
+    settings: {
+        'import/resolver': {
+            typescript: {},
+        },
+        'boundaries/ignore': [
+            '**/*.spec.ts',
+            '**/testing/**',
+            '**/@generated/**',
+            '**/src/api/**',
+            'src/main.ts',
+        ],
+        'boundaries/elements': [
+            {
+                type: 'environment',
+                pattern: 'src/app.environment.ts',
+            },
+            {
+                type: 'common',
+                pattern: 'app_modules/*',
+                mode: 'folder',
+            },
+            {
+                type: 'common',
+                pattern: 'src/prisma/*',
+                mode: 'file',
+                capture: ['elementName'],
+            },
+            {
+                type: 'type',
+                pattern: '**/*/types',
+                mode: 'folder',
+                capture: ['base', 'feature'],
+            },
+            {
+                type: 'module',
+                pattern: '**/*/*.module.ts',
+                mode: 'file',
+                capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'resolver',
+                pattern: 'src/*/**/*.resolver.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+            {
+                type: 'controller',
+                pattern: 'src/*/**/*.controller.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+            {
+                type: 'service',
+                pattern: 'src/*/**/*.service.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+            {
+                type: 'repository',
+                pattern: 'src/*/**/*.repository.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+            {
+                type: 'guard',
+                pattern: 'src/*/**/*.guard.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+            {
+                type: 'interceptor',
+                pattern: 'src/*/**/*.interceptor.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+            {
+                type: 'validator',
+                pattern: 'src/*/**/*.validator.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+            {
+                type: 'model',
+                pattern: 'src/*/**/*.{input,output,args,model,dto}.ts',
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
+            },
+        ],
+    },
     rules: {
         // core
         'no-unused-vars': 0,
@@ -90,7 +180,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 0,
         '@typescript-eslint/explicit-module-boundary-types': 0,
         // boundaries
-        'boundaries/no-unknown-files': 1,
+        'boundaries/no-unknown-files': 0,
         'boundaries/no-private': [1, { allowUncles: true }],
         'boundaries/element-types': [
             1,
@@ -125,18 +215,25 @@ module.exports = {
                             'validator',
                         ],
                         allow: [
+                            'common',
+                            'type',
                             ['service', { feature: '${feature}' }],
-                            ['model', { feature: '${feature}' }],
+                            ['model'],
                         ],
                     },
                     {
                         from: 'service',
-                        allow: ['service'],
+                        allow: [
+                            'service',
+                            'type',
+                            ['repository', { feature: '${feature}' }],
+                        ],
                     },
                     {
                         from: ['controller', 'resolver'],
                         allow: [
                             'common',
+                            'type',
                             'service',
                             ['guard', { feature: '${feature}' }],
                             ['interceptor', { feature: '${feature}' }],
@@ -146,7 +243,7 @@ module.exports = {
             },
         ],
         'boundaries/entry-point': [
-            1,
+            0,
             {
                 default: 'allow',
                 rules: [
@@ -157,98 +254,6 @@ module.exports = {
                     },
                 ],
             },
-        ],
-    },
-    settings: {
-        'import/resolver': {
-            typescript: {},
-        },
-        'boundaries/ignore': [
-            '**/*.spec.ts',
-            '**/testing/**',
-            '**/@generated/**',
-            '**/src/api/**',
-            'src/main.ts',
-        ],
-        'boundaries/elements': [
-            {
-                type: 'common',
-                pattern: 'app_modules/*',
-                mode: 'folder',
-                capture: ['elementName'],
-            },
-            {
-                type: 'common',
-                pattern: 'src/prisma/*',
-                mode: 'file',
-                capture: ['elementName'],
-            },
-            {
-                type: 'type',
-                pattern: '**/*/types',
-                mode: 'folder',
-                capture: ['base', 'feature'],
-            },
-            {
-                type: 'module',
-                pattern: '**/*/*.module.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'resolver',
-                pattern: '**/*/*.resolver.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'controller',
-                pattern: '**/*/*.controller.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'service',
-                pattern: '**/*/*.service.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'repository',
-                pattern: '**/*/*.repository.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'guard',
-                pattern: '**/*/*.guard.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'interceptor',
-                pattern: '**/*/*.interceptor.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'validator',
-                pattern: '**/*/*.validator.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            {
-                type: 'model',
-                pattern: '**/*/models/*.{input,output,args,model,dto}.ts',
-                mode: 'file',
-                capture: ['base', 'feature', 'elementName'],
-            },
-            // {
-            //     type: 'model',
-            //     pattern: '**/*/*.model.ts',
-            //     mode: 'file',
-            //     capture: ['base', 'feature', 'elementName'],
-            // },
         ],
     },
     overrides: [

@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { createSpyObj } from 'jest-createspyobj';
 
 import { PrismaRepository } from '../prisma/prisma.repository';
-import { PrismaService } from '../prisma/prisma.service';
 import { CommentService } from './comment.service';
 
 describe('CommentService', () => {
@@ -14,7 +13,7 @@ describe('CommentService', () => {
             providers: [
                 CommentService,
                 {
-                    provide: PrismaService,
+                    provide: PrismaRepository,
                     useValue: {
                         comment: createSpyObj(PrismaRepository),
                     },

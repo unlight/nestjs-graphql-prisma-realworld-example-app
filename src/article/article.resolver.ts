@@ -32,7 +32,7 @@ import assert from 'assert';
 import { GraphQLResolveInfo } from 'graphql';
 import { PlainObject } from 'simplytyped';
 
-import { PassportUserFields } from '../auth/types';
+import { PassportUserFields } from '../auth';
 import { User } from '../user/models/user.model';
 import { UserService } from '../user/user.service';
 import { ArticleService } from './article.service';

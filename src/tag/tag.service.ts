@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaRepository } from '../prisma/prisma.repository';
 
 /**
  * Service for manage tags.
@@ -9,7 +9,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class TagService {
     findMany = this.prisma.tag.findMany;
 
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(private readonly prisma: PrismaRepository) {}
 
     /**
      * Create tags (if not exists) from array of strings.

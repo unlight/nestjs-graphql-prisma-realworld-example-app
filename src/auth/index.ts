@@ -1,1 +1,1 @@
-export { PassportUserFields } from './types/passport-user-fields';
+export { PassportUserFields } from './types';

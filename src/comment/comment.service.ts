@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaRepository } from '../prisma/prisma.repository';
 
 /**
  * Service for managing article comments.
@@ -13,7 +13,7 @@ export class CommentService {
     findUnique = this.prisma.comment.findUnique;
     findMany = this.prisma.comment.findMany;
 
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(private readonly prisma: PrismaRepository) {}
 
     async get(args: {
         where: Prisma.ArticleWhereUniqueInput;

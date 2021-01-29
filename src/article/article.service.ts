@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Article, Prisma } from '@prisma/client';
 
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaRepository } from '../prisma/prisma.repository';
 import { TagService } from '../tag/tag.service';
 import { ArticleCreateInput } from './models/article-create.input';
 import { ArticleUpdateInput as ArticleUpdateInputModel } from './models/article-update.input';
@@ -18,7 +18,7 @@ export class ArticleService {
     findMany = this.prisma.article.findMany;
 
     constructor(
-        private readonly prisma: PrismaService,
+        private readonly prisma: PrismaRepository,
         private readonly slug: SlugService,
         private readonly tag: TagService,
     ) {}

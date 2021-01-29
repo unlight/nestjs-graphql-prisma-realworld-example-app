@@ -1,39 +1,53 @@
+import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+import { createPrismaQueryEventHandler } from 'prisma-query-log';
+
+import { AppEnvironment } from '../app.environment';
+
 /**
- * Base abstract class with empty methods.
- * Created for easy mocking by testing tools.
+ * Prisma client as nest service.
  */
-export class PrismaRepository {
-    findFirst(...args: unknown[]): unknown {
-        throw new Error('findFirst method is not implemented');
+@Injectable()
+export class PrismaRepository
+    extends PrismaClient
+    implements OnModuleInit, OnModuleDestroy {
+    private readonly logger = new Logger();
+
+    constructor(private readonly environment: AppEnvironment) {
+        super({
+            errorFormat: 'minimal',
+            log:
+                environment.nodeEnvironment === 'development'
+                    ? [
+                          {
+                              level: 'query',
+                              emit: 'event',
+                          },
+                      ]
+                    : undefined,
+        });
+
+        if (this.environment.nodeEnvironment === 'development') {
+            this.$on(
+                // @ts-ignore
+                'query',
+                createPrismaQueryEventHandler({
+                    logger: query => {
+                        this.logger.verbose(query, 'SQL');
+                    },
+                    format: false,
+                    colorQuery: '\u001B[96m',
+                    colorParameter: '\u001B[90m',
+                }),
+            );
+        }
     }
-    findUnique(...args: unknown[]): unknown {
-        throw new Error('findUnique method is not implemented');
+
+    async onModuleInit() {
+        await this.$connect();
     }
-    findMany(...args: unknown[]): unknown {
-        throw new Error('findMany method is not implemented');
-    }
-    create(...args: unknown[]): unknown {
-        throw new Error('create method is not implemented');
-    }
-    delete(...args: unknown[]): unknown {
-        throw new Error('delete method is not implemented');
-    }
-    update(...args: unknown[]): unknown {
-        throw new Error('update method is not implemented');
-    }
-    deleteMany(...args: unknown[]): unknown {
-        throw new Error('deleteMany method is not implemented');
-    }
-    updateMany(...args: unknown[]): unknown {
-        throw new Error('updateMany method is not implemented');
-    }
-    upsert(...args: unknown[]): unknown {
-        throw new Error('upsert method is not implemented');
-    }
-    count(...args: unknown[]): unknown {
-        throw new Error('count method is not implemented');
-    }
-    aggregate(...args: unknown[]): unknown {
-        throw new Error('aggregate method is not implemented');
+
+    async onModuleDestroy() {
+        await this.$disconnect();
     }
 }
