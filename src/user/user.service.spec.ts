@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { createSpyObj } from 'jest-createspyobj';
 
+import { DummyRepository } from '../prisma/testing';
 import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
-
-jest.mock('./user.repository');
 
 describe('UserService', () => {
     let service: UserService;
@@ -11,7 +11,15 @@ describe('UserService', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [UserService, UserRepository],
+            providers: [
+                UserService,
+                {
+                    provide: UserRepository,
+                    useValue: createSpyObj(
+                        class UserRepository extends DummyRepository {},
+                    ),
+                },
+            ],
         }).compile();
 
         service = module.get(UserService);
