@@ -38,6 +38,7 @@ module.exports = {
     settings: {
         'import/resolver': {
             typescript: {},
+            node: {},
         },
         'boundaries/ignore': [
             '**/*.spec.ts',
@@ -189,12 +190,14 @@ module.exports = {
                 rules: [
                     {
                         from: '*',
-                        allow: 'common',
+                        allow: ['common', 'type'],
                     },
                     {
                         from: 'module',
                         allow: [
                             'module',
+                            'type',
+                            'common',
                             ['controller', { feature: '${feature}' }],
                             ['resolver', { feature: '${feature}' }],
                             ['service', { feature: '${feature}' }],
