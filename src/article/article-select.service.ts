@@ -10,6 +10,7 @@ export class ArticleSelectService {
         graphqlFields: GraphqlFieldsParameter,
         currentUserId?: string,
     ): Prisma.ArticleSelect {
+        // todo: rework this
         return {
             author:
                 graphqlFields?.author?.isFollowing && currentUserId
@@ -26,7 +27,7 @@ export class ArticleSelectService {
                               },
                           },
                       }
-                    : {},
+                    : undefined,
             favoritedBy:
                 graphqlFields?.favorited && currentUserId
                     ? {
@@ -37,7 +38,7 @@ export class ArticleSelectService {
                               userId: currentUserId,
                           },
                       }
-                    : {},
+                    : undefined,
         };
     }
 }

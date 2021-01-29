@@ -12,6 +12,6 @@ export class TagResolver {
 
     @Query(() => [Tag])
     async tags() {
-        return this.tagService.findAll();
+        return this.tagService.findMany();
     }
 }

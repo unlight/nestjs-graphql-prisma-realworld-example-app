@@ -66,7 +66,9 @@ export class ArticleResolver {
         @GraphqlFields() graphqlFields: GraphqlFieldsParameter,
         @CurrentUser() currentUser?: PassportUserFields,
     ) {
-        const select = new PrismaSelect(info).value;
+        const select = new PrismaSelect(info, {
+            defaultFields: { Article: { articleId: true } },
+        }).value;
         const articleSelect = this.selectService.article(
             graphqlFields,
             currentUser?.id,

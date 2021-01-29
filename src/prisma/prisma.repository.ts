@@ -29,8 +29,7 @@ export class PrismaRepository
 
         if (this.environment.nodeEnvironment === 'development') {
             this.$on(
-                // @ts-ignore
-                'query',
+                'query' as any,
                 createPrismaQueryEventHandler({
                     logger: query => {
                         this.logger.verbose(query, 'SQL');

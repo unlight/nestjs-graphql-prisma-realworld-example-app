@@ -24,11 +24,4 @@ export class TagService {
         });
         return Promise.all(upsertOperations);
     }
-
-    /**
-     * Return all tags.
-     */
-    async findAll() {
-        return this.prisma.tag.findMany();
-    }
 }
