@@ -189,8 +189,8 @@ module.exports = {
                 default: 'disallow',
                 rules: [
                     {
-                        from: '*',
-                        allow: ['common', 'type'],
+                        from: 'type',
+                        allow: '*',
                     },
                     {
                         from: 'module',
@@ -240,6 +240,14 @@ module.exports = {
                             'service',
                             ['guard', { feature: '${feature}' }],
                             ['interceptor', { feature: '${feature}' }],
+                        ],
+                    },
+                    {
+                        from: ['model'],
+                        allow: [
+                            'common',
+                            'type',
+                            ['validator', { feature: '${feature}' }],
                         ],
                     },
                 ],
