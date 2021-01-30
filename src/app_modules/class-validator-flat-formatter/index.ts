@@ -25,10 +25,9 @@ function formatError(error: ValidationError, parentPath: string) {
     if (!isValidationError(error) || !error.constraints) {
         return '';
     }
-    return Object.keys(error.constraints)
-        .map(constraintName => {
+    return Object.entries(error.constraints)
+        .map(([constraintName, constraintMessage]) => {
             const property = propertyPath(parentPath, error.property);
-            const constraintMessage = error.constraints![constraintName];
             let result = `${property}: ${constraintMessage} (${constraintName})`;
             if (error.children && error.children.length > 0) {
                 result += `,\n${error.children

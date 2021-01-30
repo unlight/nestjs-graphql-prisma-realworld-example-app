@@ -66,21 +66,19 @@ export class ArticleResolver {
         @GraphqlFields() graphqlFields: GraphqlFieldsParameter,
         @CurrentUser() currentUser?: PassportUserFields,
     ) {
-        const select = new PrismaSelect(info, {
-            defaultFields: { Article: { articleId: true } },
-        }).value;
-        const articleSelect = this.selectService.article(
+        // TODO: Use dataloader here
+        // FIXME: This is wrong usage favorited and favoritedBy cannot be used together
+        // favoritedBy will be restricted to current user
+        const select = this.selectService.article(
             graphqlFields,
+            new PrismaSelect(info, { defaultFields: { User: { userId: true } } }).value
+                .select,
             currentUser?.id,
         );
 
-        PrismaSelect.mergeDeep(select, {
-            select: articleSelect,
-        });
-
         return this.service.findMany({
+            select,
             ...args,
-            ...select,
         });
     }
 

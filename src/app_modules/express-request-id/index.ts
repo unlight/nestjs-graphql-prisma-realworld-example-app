@@ -21,7 +21,7 @@ export function requestIdProvider(options: CreateProviderOptions = {}): Provider
     return {
         provide: RequestIdToken,
         useFactory: context => {
-            const request = getRequest!(context);
+            const request = getRequest?.(context);
             let result = request.headers[headerName];
             if (!result) {
                 result = createId();

@@ -152,12 +152,7 @@ preinstall() {
     if [ "$STACK" = 'heroku-18' ]; then
         sed -i 's/provider = "sqlite"/provider = "postgresql"/' prisma/schema.prisma
         if [ -d prisma/migrations ]; then
-            for file in prisma/migrations/*/schema.prisma; do
-                sed -i 's/provider = "sqlite"/provider = "postgresql"/' $file
-            done
-            for file in prisma/migrations/*/steps.json; do
-                sed -i 's/sqlite/postgresql/' $file
-            done
+            sed -i 's/provider = "sqlite"/provider = "postgresql"/' prisma/migrations/migration_lock.toml
         fi
     fi
     set +x
