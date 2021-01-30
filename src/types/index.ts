@@ -1,6 +1,6 @@
-import { AppEnvironment as _AppEnvironment } from '../app.environment';
 import { DeepPartial, PlainObject } from 'simplytyped';
 
+import { AppEnvironment as _AppEnvironment } from '../app.environment';
 import { graphqlModuleFactory } from '../app.module';
 
 export type Await<T> = T extends {
@@ -28,4 +28,3 @@ declare global {
 
 export type AppEnvironment = typeof _AppEnvironment;
 export type GraphqlFieldsParameter = DeepPartial<Record<string, PlainObject>>;
-
