@@ -33,6 +33,11 @@ export async function graphqlModuleFactory(logger: Logger) {
             },
             errorMap: [
                 {
+                    NotFoundError: {
+                        name: 'ENTITY_NOT_FOUND',
+                        message: 'Entity Not Found',
+                        logger: true,
+                    },
                     BadRequestException: extendMapItem(mapItemBases.InvalidFields, {
                         logger: true,
                         data: (err: any) => {

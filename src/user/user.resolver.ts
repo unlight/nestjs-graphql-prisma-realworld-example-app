@@ -1,5 +1,5 @@
 import { UserWhereUniqueInput } from '@generated/user/user-where-unique.input';
-import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import {
     Args,
     Context,
@@ -65,16 +65,11 @@ export class UserResolver {
                 User: { userId: true },
             },
         }).value;
-        const user = await this.userService.findUnique({
+        return this.userService.findUnique({
             ...select,
             where,
+            rejectOnNotFound: true,
         });
-        if (!user) {
-            throw new NotFoundException(
-                `User with ${JSON.stringify(where)} do not exists.`,
-            );
-        }
-        return user;
     }
 
     @Mutation(() => User)
@@ -119,10 +114,12 @@ export class UserResolver {
         @Args('where') where: UserWhereUniqueInput,
         @Args('value') value: boolean,
     ) {
-        const user = await this.userService.findOne(where);
-        if (!user) {
-            throw new NotFoundException(`User ${JSON.stringify(where)} do not exists`);
-        }
+        await this.userService.findUnique({
+            where,
+            select: { userId: true },
+            rejectOnNotFound: true,
+        });
+
         const follower = { userId: currentUser.id };
         return this.userService.follow(where, follower, value);
     }
