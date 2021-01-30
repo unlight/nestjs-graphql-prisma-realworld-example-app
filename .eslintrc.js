@@ -119,9 +119,12 @@ module.exports = {
             },
             {
                 type: 'model',
-                pattern: 'src/*/**/*.{input,output,args,model,dto}.ts',
+                pattern: [
+                    '**/*/models/*.{input,output,args,model,dto}.ts',
+                    '*/*/*.{input,output,args,model,dto}.ts',
+                ],
                 mode: 'file',
-                capture: ['feature', 'path', 'elementName'],
+                capture: ['base', 'feature', 'elementName'],
             },
         ],
     },
