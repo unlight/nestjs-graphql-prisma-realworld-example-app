@@ -16,6 +16,7 @@ module.exports = {
         '!**/*.module.ts',
         '!**/@generated/**',
     ],
+    setupFiles: ['<rootDir>/jest.setup.ts'],
     testRegex: ['(\\.|/)(test|spec)\\.[jt]sx?$'],
     // testMatch: ['<rootDir>/src/**/*.spec.ts'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
@@ -26,6 +27,7 @@ module.exports = {
     // modulePathIgnorePatterns: ['<rootDir>/app_modules'],
     globals: {
         'ts-jest': {
+            // compiler: 'ttypescript',
             diagnostics: false,
             isolatedModules: true,
         },
