@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Article, Prisma } from '@prisma/client';
 
-import { PrismaRepository } from '../prisma/prisma.repository';
 import { TagService } from '../tag/tag.service';
+import { ArticleRepository } from './article.repository';
 import { ArticleCreateInput } from './models/article-create.input';
 import { ArticleUpdateInput as ArticleUpdateInputModel } from './models/article-update.input';
 import { SlugService } from './slug/slug.service';
@@ -12,13 +12,13 @@ import { SlugService } from './slug/slug.service';
  */
 @Injectable()
 export class ArticleService {
-    update = this.prisma.article.update;
-    delete = this.prisma.article.delete;
-    findUnique = this.prisma.article.findUnique;
-    findMany = this.prisma.article.findMany;
+    update = this.prisma.update;
+    delete = this.prisma.delete;
+    findUnique = this.prisma.findUnique;
+    findMany = this.prisma.findMany;
 
     constructor(
-        private readonly prisma: PrismaRepository,
+        private readonly prisma: ArticleRepository,
         private readonly slug: SlugService,
         private readonly tag: TagService,
     ) {}
@@ -46,7 +46,7 @@ export class ArticleService {
         //     this.tag.createTags(args.input.tags || []),
         // ]);
 
-        return this.prisma.article.update({
+        return this.prisma.update({
             data: {
                 title: args.input.title,
                 description: args.input.description,
@@ -98,7 +98,7 @@ export class ArticleService {
                 connect: tags.map(tag => ({ tagId: tag.tagId })),
             },
         };
-        return this.prisma.article.create({
+        return this.prisma.create({
             data,
             include: {
                 author: true,
@@ -111,14 +111,14 @@ export class ArticleService {
      * Get count article by condition.
      */
     async count(where: Prisma.ArticleWhereInput) {
-        return this.prisma.article.count({ where });
+        return this.prisma.count({ where });
     }
 
     /**
      * Checks if article with {id} favorited by user {userId}.
      */
     async isFavorited(articleId: string, userId: string) {
-        const count = await this.prisma.article.count({
+        const count = await this.prisma.count({
             take: 1,
             where: { articleId, favoritedBy: { some: { userId } } },
         });

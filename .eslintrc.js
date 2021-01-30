@@ -44,13 +44,13 @@ module.exports = {
             '**/*.spec.ts',
             '**/testing/**',
             '**/@generated/**',
-            '**/src/api/**',
             'src/main.ts',
         ],
         'boundaries/elements': [
             {
-                type: 'environment',
+                type: 'common',
                 pattern: 'src/app.environment.ts',
+                mode: 'full',
             },
             {
                 type: 'common',
@@ -62,12 +62,6 @@ module.exports = {
                 pattern: 'src/prisma/*',
                 mode: 'file',
                 capture: ['elementName'],
-            },
-            {
-                type: 'type',
-                pattern: '**/*/types',
-                mode: 'folder',
-                capture: ['base', 'feature'],
             },
             {
                 type: 'module',
@@ -125,6 +119,18 @@ module.exports = {
                 ],
                 mode: 'file',
                 capture: ['base', 'feature', 'elementName'],
+            },
+            {
+                type: 'type',
+                pattern: '**/*/types',
+                mode: 'folder',
+                capture: ['base', 'feature'],
+            },
+            {
+                type: 'file',
+                pattern: ['src/*/**/*.ts', 'src/*/**/fragments/*'],
+                mode: 'file',
+                capture: ['feature', 'path', 'elementName'],
             },
         ],
     },
@@ -184,7 +190,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 0,
         '@typescript-eslint/explicit-module-boundary-types': 0,
         // boundaries
-        'boundaries/no-unknown-files': 0,
+        'boundaries/no-unknown-files': 1,
         'boundaries/no-private': [1, { allowUncles: true }],
         'boundaries/element-types': [
             1,
@@ -192,8 +198,16 @@ module.exports = {
                 default: 'disallow',
                 rules: [
                     {
-                        from: 'type',
+                        from: ['type'],
                         allow: '*',
+                    },
+                    {
+                        from: ['common'],
+                        allow: ['common', 'type'],
+                    },
+                    {
+                        from: ['file'],
+                        allow: ['type', ['file', { feature: '${feature}' }]],
                     },
                     {
                         from: 'module',
@@ -208,6 +222,7 @@ module.exports = {
                             ['repository', { feature: '${feature}' }],
                             ['validator', { feature: '${feature}' }],
                             ['model', { feature: '${feature}' }],
+                            ['file', { feature: '${feature}' }],
                         ],
                     },
                     {
@@ -233,6 +248,7 @@ module.exports = {
                             'service',
                             'type',
                             ['repository', { feature: '${feature}' }],
+                            ['file', { feature: '${feature}' }],
                         ],
                     },
                     {

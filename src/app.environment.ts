@@ -25,15 +25,18 @@ export class AppEnvironment {
     @IsNumber()
     @Min(0)
     @Max(65535)
-    port = 3000;
+    readonly port = 3000;
 
     @Env('NODE_ENV')
     @IsEnum(NodeEnvironment)
-    nodeEnvironment = NodeEnvironment.Development;
+    readonly nodeEnvironment = NodeEnvironment.Development;
 
     @Env('GRAPHQL_ENDPOINT')
-    graphqlEndpoint = `http://localhost:3000/graphql`;
+    readonly graphqlEndpoint = `http://localhost:3000/graphql`;
 
-    accessTokenExpiresIn = 18 * 3600 * 1000;
-    refreshTokenExpiresIn = 30 * 24 * 3600 * 1000; // 30 days
+    readonly accessTokenExpiresIn = 18 * 3600 * 1000;
+    readonly refreshTokenExpiresIn = 30 * 24 * 3600 * 1000; // 30 days
+
+    @Env('JWT_SECRET_KEY')
+    readonly jwtSecretKey = '';
 }

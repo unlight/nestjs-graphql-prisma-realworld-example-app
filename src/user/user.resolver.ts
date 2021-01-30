@@ -1,10 +1,5 @@
 import { UserWhereUniqueInput } from '@generated/user/user-where-unique.input';
-import {
-    Logger,
-    NotFoundException,
-    UnauthorizedException,
-    UseGuards,
-} from '@nestjs/common';
+import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common';
 import {
     Args,
     Context,
@@ -26,10 +21,9 @@ import assert from 'assert';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { PassportUserFields } from '../auth';
 import { AuthService } from '../auth/auth.service';
 import { SessionService } from '../auth/session.service';
-import { GraphQLContext } from '../types';
+import { GraphQLContext, PassportUserFields } from '../types';
 import { User } from './models/user.model';
 import { UserCreateInput } from './models/user-create.input';
 import { UserLoginInput } from './models/user-login.input';
@@ -41,7 +35,6 @@ import { UserService } from './user.service';
  */
 @Resolver(() => User)
 export class UserResolver {
-    private readonly logger = new Logger(UserResolver.name);
     constructor(
         private readonly userService: UserService,
         private readonly authService: AuthService,
@@ -135,7 +128,7 @@ export class UserResolver {
     }
 
     @ResolveField(() => String, { nullable: true })
-    async token(@Parent() user: User, @Context() context: GraphQLContext) {
+    async token(@Parent() _: User, @Context() context: GraphQLContext) {
         return context.token;
     }
 

@@ -1,6 +1,6 @@
 import { ArticleWhereUniqueInput } from '@generated/article/article-where-unique.input';
 import { CommentWhereUniqueInput } from '@generated/comment/comment-where-unique.input';
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'app_modules/current-user-decorator';
 import {
@@ -9,7 +9,7 @@ import {
 } from 'app_modules/nestjs-passport-graphql-auth-guard';
 
 import { ArticleService } from '../article/article.service';
-import { PassportUserFields } from '../auth';
+import { PassportUserFields } from '../types';
 import { AuthorGuard } from './author.guard';
 import { CommentService } from './comment.service';
 import { Comment } from './models/comment.model';
@@ -31,12 +31,7 @@ export class CommentResolver {
         @Args('where') where: ArticleWhereUniqueInput,
         @CurrentUser() currentUser: PassportUserFields,
     ) {
-        const articleExists = (await this.articleService.count(where)) !== 0;
-        if (!articleExists) {
-            throw new NotFoundException(
-                `Article ${JSON.stringify(where)} does not exist`,
-            );
-        }
+        await this.articleService.findUnique({ where, rejectOnNotFound: true });
         return this.commentService.get({ where, follower: currentUser });
     }
 
@@ -47,12 +42,7 @@ export class CommentResolver {
         @Args('where') where: ArticleWhereUniqueInput,
         @CurrentUser() currentUser: PassportUserFields,
     ) {
-        const articleExists = (await this.articleService.count(where)) !== 0;
-        if (!articleExists) {
-            throw new NotFoundException(
-                `Article ${JSON.stringify(where)} does not exist`,
-            );
-        }
+        await this.articleService.findUnique({ where, rejectOnNotFound: true });
         return this.commentService.createComment({
             where,
             body: data.body,
