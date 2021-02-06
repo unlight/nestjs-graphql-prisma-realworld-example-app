@@ -1,5 +1,4 @@
 import { Field, InputType } from '@nestjs/graphql';
-
 import { ArticleCreateOrConnectWithouttagsInput } from './article-create-or-connect-withouttags.input';
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
@@ -8,55 +7,57 @@ import { ArticleUpdateWithWhereUniqueWithoutTagsInput } from './article-update-w
 import { ArticleUpsertWithWhereUniqueWithoutTagsInput } from './article-upsert-with-where-unique-without-tags.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
+
 @InputType()
 export class ArticleUpdateManyWithoutTagsInput {
+
     @Field(() => [ArticleCreateWithoutTagsInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     create?: Array<ArticleCreateWithoutTagsInput>;
 
+    @Field(() => [ArticleCreateOrConnectWithouttagsInput], {
+            nullable: true,
+        })
+    connectOrCreate?: Array<ArticleCreateOrConnectWithouttagsInput>;
+
+    @Field(() => [ArticleUpsertWithWhereUniqueWithoutTagsInput], {
+            nullable: true,
+        })
+    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutTagsInput>;
+
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     set?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     disconnect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     delete?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutTagsInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     update?: Array<ArticleUpdateWithWhereUniqueWithoutTagsInput>;
 
     @Field(() => [ArticleUpdateManyWithWhereWithoutTagsInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     updateMany?: Array<ArticleUpdateManyWithWhereWithoutTagsInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     deleteMany?: Array<ArticleScalarWhereInput>;
-
-    @Field(() => [ArticleUpsertWithWhereUniqueWithoutTagsInput], {
-        nullable: true,
-    })
-    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutTagsInput>;
-
-    @Field(() => [ArticleCreateOrConnectWithouttagsInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<ArticleCreateOrConnectWithouttagsInput>;
 }

@@ -1,5 +1,4 @@
 import { Field, InputType } from '@nestjs/graphql';
-
 import { CommentCreateOrConnectWithoutauthorInput } from './comment-create-or-connect-withoutauthor.input';
 import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
@@ -8,55 +7,57 @@ import { CommentUpdateWithWhereUniqueWithoutAuthorInput } from './comment-update
 import { CommentUpsertWithWhereUniqueWithoutAuthorInput } from './comment-upsert-with-where-unique-without-author.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
+
 @InputType()
 export class CommentUncheckedUpdateManyWithoutAuthorInput {
+
     @Field(() => [CommentCreateWithoutAuthorInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     create?: Array<CommentCreateWithoutAuthorInput>;
 
+    @Field(() => [CommentCreateOrConnectWithoutauthorInput], {
+            nullable: true,
+        })
+    connectOrCreate?: Array<CommentCreateOrConnectWithoutauthorInput>;
+
+    @Field(() => [CommentUpsertWithWhereUniqueWithoutAuthorInput], {
+            nullable: true,
+        })
+    upsert?: Array<CommentUpsertWithWhereUniqueWithoutAuthorInput>;
+
     @Field(() => [CommentWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     connect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     set?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     disconnect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     delete?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentUpdateWithWhereUniqueWithoutAuthorInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     update?: Array<CommentUpdateWithWhereUniqueWithoutAuthorInput>;
 
     @Field(() => [CommentUpdateManyWithWhereWithoutAuthorInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     updateMany?: Array<CommentUpdateManyWithWhereWithoutAuthorInput>;
 
     @Field(() => [CommentScalarWhereInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     deleteMany?: Array<CommentScalarWhereInput>;
-
-    @Field(() => [CommentUpsertWithWhereUniqueWithoutAuthorInput], {
-        nullable: true,
-    })
-    upsert?: Array<CommentUpsertWithWhereUniqueWithoutAuthorInput>;
-
-    @Field(() => [CommentCreateOrConnectWithoutauthorInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<CommentCreateOrConnectWithoutauthorInput>;
 }

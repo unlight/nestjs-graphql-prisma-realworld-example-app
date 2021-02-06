@@ -1,51 +1,58 @@
 import { Field, InputType } from '@nestjs/graphql';
-
 import { SortOrder } from '../prisma/sort-order.enum';
+import { UserOrderByInput } from '../user/user-order-by.input';
+
 
 @InputType()
 export class ArticleOrderByInput {
+
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     articleId?: SortOrder;
 
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     slug?: SortOrder;
 
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     title?: SortOrder;
 
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     description?: SortOrder;
 
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     body?: SortOrder;
 
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     createdAt?: SortOrder;
 
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     updatedAt?: SortOrder;
 
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     favoritesCount?: SortOrder;
 
+    @Field(() => UserOrderByInput, {
+            nullable: true,
+        })
+    author?: UserOrderByInput;
+
     @Field(() => SortOrder, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     authorId?: SortOrder;
 }

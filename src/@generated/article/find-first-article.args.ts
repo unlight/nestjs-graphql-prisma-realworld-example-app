@@ -1,39 +1,40 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
-
 import { ArticleOrderByInput } from './article-order-by.input';
 import { ArticleScalarFieldEnum } from './article-scalar-field.enum';
-import { ArticleWhereInput } from './article-where.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleWhereInput } from './article-where.input';
+
 
 @ArgsType()
 export class FindFirstArticleArgs {
+
     @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     where?: ArticleWhereInput;
 
     @Field(() => [ArticleOrderByInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     orderBy?: Array<ArticleOrderByInput>;
 
     @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     cursor?: ArticleWhereUniqueInput;
 
     @Field(() => Int, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     take?: number;
 
     @Field(() => Int, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     skip?: number;
 
     @Field(() => [ArticleScalarFieldEnum], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     distinct?: Array<ArticleScalarFieldEnum>;
 }

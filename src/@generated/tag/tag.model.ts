@@ -1,21 +1,22 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-
 import { Article } from '../article/article.model';
+
 
 @ObjectType()
 export class Tag {
+
     @Field(() => ID, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     tagId!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     name!: string;
 
     @Field(() => [Article], {
-        nullable: true,
-    })
-    articles?: Array<Article>;
+            nullable: false,
+        })
+    articles!: Array<Article>;
 }

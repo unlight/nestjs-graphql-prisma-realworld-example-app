@@ -1,5 +1,4 @@
 import { Field, InputType } from '@nestjs/graphql';
-
 import { UserCreateOrConnectWithoutfollowingInput } from './user-create-or-connect-withoutfollowing.input';
 import { UserCreateWithoutFollowingInput } from './user-create-without-following.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
@@ -8,55 +7,57 @@ import { UserUpdateWithWhereUniqueWithoutFollowingInput } from './user-update-wi
 import { UserUpsertWithWhereUniqueWithoutFollowingInput } from './user-upsert-with-where-unique-without-following.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
+
 @InputType()
 export class UserUpdateManyWithoutFollowingInput {
+
     @Field(() => [UserCreateWithoutFollowingInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     create?: Array<UserCreateWithoutFollowingInput>;
 
+    @Field(() => [UserCreateOrConnectWithoutfollowingInput], {
+            nullable: true,
+        })
+    connectOrCreate?: Array<UserCreateOrConnectWithoutfollowingInput>;
+
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {
+            nullable: true,
+        })
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
+
     @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     connect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     set?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     disconnect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     delete?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     update?: Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
 
     @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     updateMany?: Array<UserUpdateManyWithWhereWithoutFollowingInput>;
 
     @Field(() => [UserScalarWhereInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     deleteMany?: Array<UserScalarWhereInput>;
-
-    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {
-        nullable: true,
-    })
-    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
-
-    @Field(() => [UserCreateOrConnectWithoutfollowingInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<UserCreateOrConnectWithoutfollowingInput>;
 }

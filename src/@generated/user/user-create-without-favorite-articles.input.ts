@@ -1,59 +1,60 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { ArticleCreateNestedManyWithoutAuthorInput } from '../prisma/article-create-nested-many-without-author.input';
+import { CommentCreateNestedManyWithoutAuthorInput } from '../prisma/comment-create-nested-many-without-author.input';
+import { UserCreateNestedManyWithoutFollowersInput } from '../prisma/user-create-nested-many-without-followers.input';
+import { UserCreateNestedManyWithoutFollowingInput } from '../prisma/user-create-nested-many-without-following.input';
 
-import { ArticleCreateManyWithoutAuthorInput } from '../article/article-create-many-without-author.input';
-import { CommentCreateManyWithoutAuthorInput } from '../comment/comment-create-many-without-author.input';
-import { UserCreateManyWithoutFollowersInput } from './user-create-many-without-followers.input';
-import { UserCreateManyWithoutFollowingInput } from './user-create-many-without-following.input';
 
 @InputType()
 export class UserCreateWithoutFavoriteArticlesInput {
+
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     userId?: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     email!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     name!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     password!: string;
 
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     bio?: string;
 
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     image?: string;
 
-    @Field(() => UserCreateManyWithoutFollowersInput, {
-        nullable: true,
-    })
-    following?: UserCreateManyWithoutFollowersInput;
+    @Field(() => UserCreateNestedManyWithoutFollowersInput, {
+            nullable: true,
+        })
+    following?: UserCreateNestedManyWithoutFollowersInput;
 
-    @Field(() => UserCreateManyWithoutFollowingInput, {
-        nullable: true,
-    })
-    followers?: UserCreateManyWithoutFollowingInput;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {
+            nullable: true,
+        })
+    followers?: UserCreateNestedManyWithoutFollowingInput;
 
-    @Field(() => ArticleCreateManyWithoutAuthorInput, {
-        nullable: true,
-    })
-    Article?: ArticleCreateManyWithoutAuthorInput;
+    @Field(() => ArticleCreateNestedManyWithoutAuthorInput, {
+            nullable: true,
+        })
+    Article?: ArticleCreateNestedManyWithoutAuthorInput;
 
-    @Field(() => CommentCreateManyWithoutAuthorInput, {
-        nullable: true,
-    })
-    Comment?: CommentCreateManyWithoutAuthorInput;
+    @Field(() => CommentCreateNestedManyWithoutAuthorInput, {
+            nullable: true,
+        })
+    Comment?: CommentCreateNestedManyWithoutAuthorInput;
 }

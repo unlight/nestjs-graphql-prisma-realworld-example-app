@@ -1,31 +1,32 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { UserCreateNestedOneWithoutCommentInput } from '../prisma/user-create-nested-one-without-comment.input';
 
-import { UserCreateOneWithoutCommentInput } from '../user/user-create-one-without-comment.input';
 
 @InputType()
 export class CommentCreateWithoutArticleInput {
+
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     commentId?: string;
 
     @Field(() => Date, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     createdAt?: Date | string;
 
     @Field(() => Date, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     updatedAt?: Date | string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     body!: string;
 
-    @Field(() => UserCreateOneWithoutCommentInput, {
-        nullable: false,
-    })
-    author!: UserCreateOneWithoutCommentInput;
+    @Field(() => UserCreateNestedOneWithoutCommentInput, {
+            nullable: false,
+        })
+    author!: UserCreateNestedOneWithoutCommentInput;
 }

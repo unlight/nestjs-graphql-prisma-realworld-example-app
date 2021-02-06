@@ -27,7 +27,7 @@ module.exports = {
     // modulePathIgnorePatterns: ['<rootDir>/app_modules'],
     globals: {
         'ts-jest': {
-            // compiler: 'ttypescript',
+            compiler: 'ttypescript',
             diagnostics: false,
             isolatedModules: true,
         },

@@ -1,5 +1,4 @@
 import { Field, InputType } from '@nestjs/graphql';
-
 import { ArticleCreateOrConnectWithoutfavoritedByInput } from './article-create-or-connect-withoutfavorited-by.input';
 import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
@@ -8,55 +7,57 @@ import { ArticleUpdateWithWhereUniqueWithoutFavoritedByInput } from './article-u
 import { ArticleUpsertWithWhereUniqueWithoutFavoritedByInput } from './article-upsert-with-where-unique-without-favorited-by.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
+
 @InputType()
 export class ArticleUpdateManyWithoutFavoritedByInput {
+
     @Field(() => [ArticleCreateWithoutFavoritedByInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
+    @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
+            nullable: true,
+        })
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
+
+    @Field(() => [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput], {
+            nullable: true,
+        })
+    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
+
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     set?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     disconnect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     delete?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     update?: Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
 
     @Field(() => [ArticleUpdateManyWithWhereWithoutFavoritedByInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     updateMany?: Array<ArticleUpdateManyWithWhereWithoutFavoritedByInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
-        nullable: true,
-    })
+            nullable: true,
+        })
     deleteMany?: Array<ArticleScalarWhereInput>;
-
-    @Field(() => [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput], {
-        nullable: true,
-    })
-    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
-
-    @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
 }

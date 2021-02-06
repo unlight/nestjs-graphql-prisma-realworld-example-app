@@ -1,63 +1,64 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
+import { TagCreateNestedManyWithoutArticlesInput } from '../prisma/tag-create-nested-many-without-articles.input';
+import { UserCreateNestedManyWithoutFavoriteArticlesInput } from '../prisma/user-create-nested-many-without-favorite-articles.input';
+import { UserCreateNestedOneWithoutArticleInput } from '../prisma/user-create-nested-one-without-article.input';
 
-import { TagCreateManyWithoutArticlesInput } from '../tag/tag-create-many-without-articles.input';
-import { UserCreateManyWithoutFavoriteArticlesInput } from '../user/user-create-many-without-favorite-articles.input';
-import { UserCreateOneWithoutArticleInput } from '../user/user-create-one-without-article.input';
 
 @InputType()
 export class ArticleCreateWithoutCommentsInput {
+
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     articleId?: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     slug!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     title!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     description!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     body!: string;
 
     @Field(() => Date, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     createdAt?: Date | string;
 
     @Field(() => Date, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     updatedAt?: Date | string;
 
     @Field(() => Int, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     favoritesCount?: number;
 
-    @Field(() => TagCreateManyWithoutArticlesInput, {
-        nullable: true,
-    })
-    tags?: TagCreateManyWithoutArticlesInput;
+    @Field(() => TagCreateNestedManyWithoutArticlesInput, {
+            nullable: true,
+        })
+    tags?: TagCreateNestedManyWithoutArticlesInput;
 
-    @Field(() => UserCreateOneWithoutArticleInput, {
-        nullable: true,
-    })
-    author?: UserCreateOneWithoutArticleInput;
+    @Field(() => UserCreateNestedOneWithoutArticleInput, {
+            nullable: true,
+        })
+    author?: UserCreateNestedOneWithoutArticleInput;
 
-    @Field(() => UserCreateManyWithoutFavoriteArticlesInput, {
-        nullable: true,
-    })
-    favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput;
+    @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {
+            nullable: true,
+        })
+    favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
 }

@@ -1,41 +1,42 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { CommentUncheckedCreateNestedManyWithoutAuthorInput } from '../comment/comment-unchecked-create-nested-many-without-author.input';
 
-import { CommentUncheckedCreateManyWithoutAuthorInput } from '../comment/comment-unchecked-create-many-without-author.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutArticleInput {
+
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     userId?: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     email!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     name!: string;
 
     @Field(() => String, {
-        nullable: false,
-    })
+            nullable: false,
+        })
     password!: string;
 
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     bio?: string;
 
     @Field(() => String, {
-        nullable: true,
-    })
+            nullable: true,
+        })
     image?: string;
 
-    @Field(() => CommentUncheckedCreateManyWithoutAuthorInput, {
-        nullable: true,
-    })
-    Comment?: CommentUncheckedCreateManyWithoutAuthorInput;
+    @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, {
+            nullable: true,
+        })
+    Comment?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
 }
